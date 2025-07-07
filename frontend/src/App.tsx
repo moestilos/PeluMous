@@ -6,8 +6,10 @@ import '@fontsource/inter/700.css';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
+import { Box } from '@mui/material';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { NotificationProvider } from './components/Notifications/NotificationProvider';
+import Navigation from './components/Navigation/Navigation';
 import AuthForm from './components/Auth/AuthForm';
 import Dashboard from './components/Dashboard/Dashboard';
 import Home from './components/Home/Home';
@@ -137,34 +139,39 @@ function App() {
       <NotificationProvider>
         <AuthProvider>
           <Router>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/auth" element={<AuthForm />} />
-              <Route 
-                path="/dashboard" 
-                element={
-                  <ProtectedRoute>
-                    <Dashboard />
-                  </ProtectedRoute>
-                } 
-              />
-              <Route 
-                path="/admin" 
-                element={
-                  <ProtectedRoute>
-                    <AdminPanel />
-                  </ProtectedRoute>
-                } 
-              />
-              <Route 
-                path="/hairdresser" 
-                element={
-                  <ProtectedRoute>
-                    <HairdresserPanel />
-                  </ProtectedRoute>
-                } 
-              />
-            </Routes>
+            <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+              <Navigation />
+              <Box sx={{ flex: 1 }}>
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/auth" element={<AuthForm />} />
+                  <Route 
+                    path="/dashboard" 
+                    element={
+                      <ProtectedRoute>
+                        <Dashboard />
+                      </ProtectedRoute>
+                    } 
+                  />
+                  <Route 
+                    path="/admin" 
+                    element={
+                      <ProtectedRoute>
+                        <AdminPanel />
+                      </ProtectedRoute>
+                    } 
+                  />
+                  <Route 
+                    path="/hairdresser" 
+                    element={
+                      <ProtectedRoute>
+                        <HairdresserPanel />
+                      </ProtectedRoute>
+                    } 
+                  />
+                </Routes>
+              </Box>
+            </Box>
           </Router>
         </AuthProvider>
       </NotificationProvider>

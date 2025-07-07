@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import {
-  AppBar,
-  Toolbar,
   Typography,
   Button,
   Container,
@@ -133,76 +131,7 @@ const Home: React.FC = () => {
       animate="visible"
     >
       <Box>
-        {/* Header Mejorado */}
-        <AppBar 
-          position="static" 
-          sx={{ 
-            mb: 4,
-            background: `linear-gradient(135deg, ${theme.palette.primary.main} 0%, ${theme.palette.primary.dark} 100%)`,
-            backdropFilter: 'blur(10px)',
-            boxShadow: '0 8px 32px rgba(0,0,0,0.1)'
-          }}
-        >
-          <Toolbar>
-            <Stack direction="row" alignItems="center" spacing={1} sx={{ flexGrow: 1 }}>
-              <Avatar sx={{ 
-                background: `linear-gradient(135deg, ${theme.palette.secondary.main}, ${theme.palette.secondary.dark})`,
-                width: 32, 
-                height: 32 
-              }}>
-                <AutoAwesome fontSize="small" />
-              </Avatar>
-              <Typography variant="h6" component="div" sx={{ fontWeight: 700 }}>
-                Peluquería Bella Vista
-              </Typography>
-            </Stack>
-            {user ? (
-              <Stack direction="row" alignItems="center" spacing={2}>
-                <Avatar sx={{ 
-                  width: 32, 
-                  height: 32, 
-                  background: alpha(theme.palette.common.white, 0.2)
-                }}>
-                  {user.nombre.charAt(0).toUpperCase()}
-                </Avatar>
-                <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.9)' }}>
-                  Hola, {user.nombre}
-                </Typography>
-                <Button 
-                  color="inherit" 
-                  onClick={() => navigate('/dashboard')}
-                  sx={{
-                    background: 'rgba(255,255,255,0.1)',
-                    backdropFilter: 'blur(10px)',
-                    '&:hover': {
-                      background: 'rgba(255,255,255,0.2)',
-                      transform: 'translateY(-1px)'
-                    }
-                  }}
-                >
-                  Mi Panel
-                </Button>
-              </Stack>
-            ) : (
-              <Button 
-                color="inherit" 
-                onClick={() => navigate('/auth')}
-                sx={{
-                  background: 'rgba(255,255,255,0.1)',
-                  backdropFilter: 'blur(10px)',
-                  '&:hover': {
-                    background: 'rgba(255,255,255,0.2)',
-                    transform: 'translateY(-1px)'
-                  }
-                }}
-              >
-                Iniciar Sesión
-              </Button>
-            )}
-          </Toolbar>
-        </AppBar>
-
-        <Container maxWidth="lg">
+        <Container maxWidth="lg" sx={{ pt: 4 }}>
           {/* Panel de Bienvenida y Acceso Rápido */}
           <motion.div variants={itemVariants}>
             <WelcomePanel />
