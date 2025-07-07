@@ -1,0 +1,293 @@
+/* Mejoras específicas para el fondo - Solo para componentes específicos */
+.MuiTableContainer-root {
+  background-color: #ffffff !important;
+  border: 2px solid #000000 !important;
+  border-radius: 8px !important;
+  box-shadow: 4px 4px 0px #000000 !important;
+}
+
+/* Paper solo para ciertos contextos, no todos */
+.MuiPaper-root:not(.MuiDialog-paper):not(.MuiMenu-paper):not(.MuiAppBar-root) {
+  background-color: #ffffff !important;
+  border: 2px solid #000000 !important;
+  border-radius: 8px !important;
+  box-shadow: 4px 4px 0px #000000 !important;
+}
+
+.MuiDialog-paper {
+  background-color: #ffffff !important;
+  border: 3px solid #000000 !important;
+  border-radius: 12px !important;
+  box-shadow: 6px 6px 0px #000000 !important;
+}
+
+.MuiMenu-paper {
+  background-color: #ffffff !important;
+  border: 2px solid #000000 !important;
+  border-radius: 8px !important;
+  box-shadow: 4px 4px 0px #000000 !important;
+}
+
+/* Títulos más marcados */
+.MuiTypography-h4, .MuiTypography-h5, .MuiTypography-h6 {
+  color: #000000 !important;
+  font-weight: 700 !important;
+}
+
+/* Botones con estilo neomorfismo */
+.MuiButton-contained {
+  background-color: #000000 !important;
+  border: 2px solid #000000 !important;
+  box-shadow: 4px 4px 0px #333333 !important;
+  border-radius: 8px !important;
+  font-weight: 700 !important;
+}
+
+.MuiButton-contained:hover {
+  background-color: #000000 !important;
+  transform: translate(-2px, -2px) !important;
+  box-shadow: 6px 6px 0px #333333 !important;
+}
+
+.MuiButton-outlined {
+  border: 2px solid #000000 !important;
+  background-color: #ffffff !important;
+  box-shadow: 4px 4px 0px #000000 !important;
+  border-radius: 8px !important;
+  font-weight: 700 !important;
+}
+
+.MuiButton-outlined:hover {
+  border: 2px solid #000000 !important;
+  background-color: #f5f5f5 !important;
+  transform: translate(-2px, -2px) !important;
+  box-shadow: 6px 6px 0px #000000 !important;
+}
+
+/* Cards con estilo neomorfismo */
+.MuiCard-root {
+  background-color: #ffffff !important;
+  border: 2px solid #000000 !important;
+  border-radius: 12px !important;
+  box-shadow: 6px 6px 0px #000000 !important;
+}
+
+.MuiCard-root:hover {
+  transform: translate(-2px, -2px) !important;
+  box-shadow: 8px 8px 0px #000000 !important;
+}
+
+/* AppBar sólido */
+.MuiAppBar-root {
+  background-color: #ffffff !important;
+  border-bottom: 3px solid #000000 !important;
+  box-shadow: none !important;
+}
+
+/* Alerts con mejor visibilidad */
+.MuiAlert-root {
+  background-color: #ffffff !important;
+  border: 2px solid #000000 !important;
+  border-radius: 8px !important;
+  box-shadow: 4px 4px 0px #000000 !important;
+}
+
+/* Estilos específicos para AdminPanel */
+.MuiTableHead-root .MuiTableRow-root {
+  background-color: #f5f5f5 !important;
+}
+
+.MuiTableHead-root .MuiTableCell-root {
+  background-color: #f5f5f5 !important;
+  border-bottom: 2px solid #000000 !important;
+  font-weight: 700 !important;
+  color: #000000 !important;
+}
+
+.MuiTableBody-root .MuiTableCell-root {
+  border-bottom: 1px solid #e0e0e0 !important;
+  color: #000000 !important;
+}
+
+/* Input fields con estilo neomorfismo - Versión mejorada */
+.MuiTextField-root .MuiOutlinedInput-root {
+  background-color: #ffffff !important;
+  border: 2px solid #000000 !important;
+  border-radius: 8px !important;
+}
+
+.MuiTextField-root .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
+  border: none !important;
+}
+
+.MuiTextField-root .MuiOutlinedInput-root:hover {
+  border: 2px solid #333333 !important;
+}
+
+.MuiTextField-root .MuiOutlinedInput-root.Mui-focused {
+  border: 2px solid #000000 !important;
+  box-shadow: 0 0 0 3px rgba(0,0,0,0.1) !important;
+}
+
+.MuiTextField-root .MuiInputLabel-root {
+  color: #666666 !important;
+}
+
+.MuiTextField-root .MuiInputLabel-root.Mui-focused {
+  color: #000000 !important;
+}
+
+.MuiTextField-root .MuiOutlinedInput-input {
+  color: #000000 !important;
+}
+
+/* Asegurar contraste en todos los textos */
+.MuiTypography-root {
+  color: inherit !important;
+}
+
+/* Fix para elementos con opacity problemática */
+.MuiAlert-root .MuiTypography-root {
+  color: inherit !important;
+  opacity: 1 !important;
+}
+
+/* Chips con estilo consistente */
+.MuiChip-root {
+  border: 1px solid #000000 !important;
+  font-weight: 600 !important;
+}
+
+/* Toggle buttons */
+.MuiToggleButton-root {
+  background-color: #ffffff !important;
+  border: 2px solid #000000 !important;
+  color: #000000 !important;
+  font-weight: 600 !important;
+}
+
+.MuiToggleButton-root.Mui-selected {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+  border: 2px solid #000000 !important;
+}
+
+.MuiToggleButton-root:hover {
+  background-color: #f5f5f5 !important;
+}
+
+.MuiToggleButton-root.Mui-selected:hover {
+  background-color: #000000 !important;
+}
+
+/* Mejoras de contraste para toda la aplicación */
+
+/* Asegurar texto legible en todas las cajas */
+.MuiCard-root .MuiTypography-root {
+  color: #000000 !important;
+}
+
+.MuiPaper-root .MuiTypography-root {
+  color: #000000 !important;
+}
+
+.MuiDialog-paper .MuiTypography-root {
+  color: #000000 !important;
+}
+
+/* Chips con mejor contraste */
+.MuiChip-root {
+  background-color: #ffffff !important;
+  border: 2px solid #000000 !important;
+  color: #000000 !important;
+  font-weight: 600 !important;
+}
+
+.MuiChip-root .MuiChip-icon {
+  color: #000000 !important;
+}
+
+/* Tabs con mejor contraste */
+.MuiTabs-root .MuiTab-root {
+  color: #666666 !important;
+}
+
+.MuiTabs-root .MuiTab-root.Mui-selected {
+  color: #000000 !important;
+}
+
+/* Botones outlined con mejor contraste */
+.MuiButton-outlined {
+  border: 2px solid #000000 !important;
+  background-color: #ffffff !important;
+  color: #000000 !important;
+  box-shadow: 4px 4px 0px #000000 !important;
+  border-radius: 8px !important;
+  font-weight: 700 !important;
+}
+
+.MuiButton-outlined:hover {
+  border: 2px solid #000000 !important;
+  background-color: #f5f5f5 !important;
+  color: #000000 !important;
+  transform: translate(2px, 2px) !important;
+  box-shadow: 2px 2px 0px #000000 !important;
+}
+
+/* Lista items con mejor contraste */
+.MuiListItemText-root .MuiTypography-root {
+  color: #000000 !important;
+}
+
+/* Menu items con mejor contraste */
+.MuiMenuItem-root {
+  color: #000000 !important;
+}
+
+/* Asegurar contraste en elementos de navegación */
+.MuiAppBar-root .MuiTypography-root {
+  color: #000000 !important;
+}
+
+.MuiAppBar-root .MuiIconButton-root {
+  color: #000000 !important;
+}
+
+/* Prevenir superposiciones y problemas de layout */
+* {
+  box-sizing: border-box !important;
+}
+
+/* Container principal sin overflow problemático */
+#root {
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Evitar blur problemáticos */
+.MuiBox-root {
+  backdrop-filter: none !important;
+  filter: none !important;
+}
+
+/* Override de cualquier transparencia problemática */
+.MuiPaper-root:not(.MuiDialog-paper):not(.MuiMenu-paper) {
+  backdrop-filter: none !important;
+  filter: none !important;
+}
+
+/* Asegurar que los elementos no se salgan de sus contenedores */
+.MuiContainer-root {
+  overflow: visible !important;
+}
+
+/* Fix para elementos absolutos problemáticos */
+.MuiCard-root {
+  overflow: visible !important;
+  position: relative !important;
+}
+
+/* Líneas indicadoras bien posicionadas */
+.MuiTabs-indicator {
+  z-index: 2 !important;
+}

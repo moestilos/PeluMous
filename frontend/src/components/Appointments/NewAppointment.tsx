@@ -185,13 +185,14 @@ const NewAppointment: React.FC = () => {
             {/* Selección de Servicio */}
             <motion.div variants={itemVariants}>
               <Card sx={{ 
-                background: `linear-gradient(135deg, ${alpha(theme.palette.background.paper, 0.8)} 0%, ${alpha(theme.palette.background.paper, 0.9)} 100%)`,
-                backdropFilter: 'blur(10px)',
-                border: `1px solid ${alpha(theme.palette.primary.main, 0.1)}`,
+                background: '#ffffff',
+                border: '2px solid #000000',
+                borderRadius: 2,
+                boxShadow: '4px 4px 0px #000000',
                 transition: 'all 0.3s ease',
                 '&:hover': {
-                  boxShadow: `0 8px 32px ${alpha(theme.palette.primary.main, 0.1)}`,
-                  border: `1px solid ${alpha(theme.palette.primary.main, 0.3)}`
+                  transform: 'translate(-2px, -2px)',
+                  boxShadow: '6px 6px 0px #000000'
                 }
               }}>
                 <CardContent sx={{ p: 3 }}>
@@ -279,13 +280,14 @@ const NewAppointment: React.FC = () => {
             {/* Selección de Peluquero */}
             <motion.div variants={itemVariants}>
               <Card sx={{ 
-                background: `linear-gradient(135deg, ${alpha(theme.palette.background.paper, 0.8)} 0%, ${alpha(theme.palette.background.paper, 0.9)} 100%)`,
-                backdropFilter: 'blur(10px)',
-                border: `1px solid ${alpha(theme.palette.secondary.main, 0.1)}`,
+                background: '#ffffff',
+                border: '2px solid #000000',
+                borderRadius: 2,
+                boxShadow: '4px 4px 0px #000000',
                 transition: 'all 0.3s ease',
                 '&:hover': {
-                  boxShadow: `0 8px 32px ${alpha(theme.palette.secondary.main, 0.1)}`,
-                  border: `1px solid ${alpha(theme.palette.secondary.main, 0.3)}`
+                  transform: 'translate(-2px, -2px)',
+                  boxShadow: '6px 6px 0px #000000'
                 }
               }}>
                 <CardContent sx={{ p: 3 }}>
@@ -368,13 +370,14 @@ const NewAppointment: React.FC = () => {
             {/* Fecha y Hora */}
             <motion.div variants={itemVariants}>
               <Card sx={{ 
-                background: `linear-gradient(135deg, ${alpha(theme.palette.background.paper, 0.8)} 0%, ${alpha(theme.palette.background.paper, 0.9)} 100%)`,
-                backdropFilter: 'blur(10px)',
-                border: `1px solid ${alpha(theme.palette.info.main, 0.1)}`,
+                background: '#ffffff',
+                border: '2px solid #000000',
+                borderRadius: 2,
+                boxShadow: '4px 4px 0px #000000',
                 transition: 'all 0.3s ease',
                 '&:hover': {
-                  boxShadow: `0 8px 32px ${alpha(theme.palette.info.main, 0.1)}`,
-                  border: `1px solid ${alpha(theme.palette.info.main, 0.3)}`
+                  transform: 'translate(-2px, -2px)',
+                  boxShadow: '6px 6px 0px #000000'
                 }
               }}>
                 <CardContent sx={{ p: 3 }}>
@@ -424,13 +427,14 @@ const NewAppointment: React.FC = () => {
             {/* Notas Adicionales */}
             <motion.div variants={itemVariants}>
               <Card sx={{ 
-                background: `linear-gradient(135deg, ${alpha(theme.palette.background.paper, 0.8)} 0%, ${alpha(theme.palette.background.paper, 0.9)} 100%)`,
-                backdropFilter: 'blur(10px)',
-                border: `1px solid ${alpha(theme.palette.warning.main, 0.1)}`,
+                background: '#ffffff',
+                border: '2px solid #000000',
+                borderRadius: 2,
+                boxShadow: '4px 4px 0px #000000',
                 transition: 'all 0.3s ease',
                 '&:hover': {
-                  boxShadow: `0 8px 32px ${alpha(theme.palette.warning.main, 0.1)}`,
-                  border: `1px solid ${alpha(theme.palette.warning.main, 0.3)}`
+                  transform: 'translate(-2px, -2px)',
+                  boxShadow: '6px 6px 0px #000000'
                 }
               }}>
                 <CardContent sx={{ p: 3 }}>
@@ -461,17 +465,19 @@ const NewAppointment: React.FC = () => {
                 <CardContent sx={{ p: 3, position: 'relative', zIndex: 1 }}>
                   <Stack direction="row" alignItems="center" spacing={2}>
                     <Avatar sx={{ 
-                      background: 'rgba(255,255,255,0.2)',
+                      background: '#ffffff',
+                      border: '2px solid #000000',
+                      color: '#000000',
                       width: 48,
                       height: 48
                     }}>
-                      <CheckCircle sx={{ color: 'white' }} />
+                      <CheckCircle sx={{ color: '#000000' }} />
                     </Avatar>
                     <Box sx={{ flex: 1 }}>
-                      <Typography variant="h6" sx={{ color: 'white', fontWeight: 600, mb: 0.5 }}>
+                      <Typography variant="h6" sx={{ color: '#000000 !important', fontWeight: 600, mb: 0.5 }}>
                         Confirmar Reserva
                       </Typography>
-                      <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.9)' }}>
+                      <Typography variant="body2" sx={{ color: '#666666 !important' }}>
                         Revisa los datos y confirma tu cita
                       </Typography>
                     </Box>
@@ -487,14 +493,15 @@ const NewAppointment: React.FC = () => {
                         fontWeight: 600,
                         px: 4,
                         py: 1.5,
+                        border: '2px solid #000000',
                         '&:hover': {
-                          background: 'rgba(255,255,255,0.9)',
+                          background: '#f5f5f5',
                           transform: 'translateY(-2px)',
                           boxShadow: '0 8px 25px rgba(0,0,0,0.2)'
                         },
                         '&:disabled': {
-                          background: 'rgba(255,255,255,0.5)',
-                          color: 'rgba(76, 175, 80, 0.5)'
+                          background: '#e0e0e0',
+                          color: '#666666'
                         }
                       }}
                     >
@@ -503,18 +510,7 @@ const NewAppointment: React.FC = () => {
                   </Stack>
                 </CardContent>
                 {/* Elemento decorativo */}
-                <Box
-                  sx={{
-                    position: 'absolute',
-                    bottom: -20,
-                    right: -20,
-                    width: 80,
-                    height: 80,
-                    borderRadius: '50%',
-                    background: 'rgba(255,255,255,0.1)',
-                    filter: 'blur(20px)'
-                  }}
-                />
+                {/* Elemento decorativo eliminado para mayor claridad */}
               </Card>
             </motion.div>
           </Stack>

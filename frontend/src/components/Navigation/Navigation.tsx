@@ -18,7 +18,6 @@ import {
   ListItemButton,
   Divider,
   useTheme,
-  alpha,
   Chip,
   Stack,
   useMediaQuery
@@ -32,11 +31,9 @@ import {
   ContentCut,
   Person,
   Logout,
-  Settings,
   Notifications,
   CalendarMonth,
   Groups,
-  Analytics,
   Schedule,
   CheckCircle
 } from '@mui/icons-material';
@@ -65,7 +62,7 @@ const Navigation: React.FC = () => {
       label: 'Inicio',
       path: '/',
       icon: <Home />,
-      roles: ['cliente', 'admin', 'peluquero']
+      roles: ['cliente'] // Solo clientes ven el Home
     },
     {
       label: 'Dashboard',
@@ -115,12 +112,6 @@ const Navigation: React.FC = () => {
       path: '/admin?section=users',
       icon: <Groups />,
       roles: ['admin']
-    },
-    {
-      label: 'Reportes',
-      path: '/admin?section=reports',
-      icon: <Analytics />,
-      roles: ['admin']
     }
   ];
 
@@ -154,13 +145,13 @@ const Navigation: React.FC = () => {
   const getRoleColor = (role: string) => {
     switch (role) {
       case 'admin':
-        return theme.palette.error.main;
+        return '#dc2626';
       case 'peluquero':
-        return theme.palette.warning.main;
+        return '#f59e0b';
       case 'cliente':
-        return theme.palette.info.main;
+        return '#059669';
       default:
-        return theme.palette.primary.main;
+        return '#000000';
     }
   };
 
@@ -178,15 +169,29 @@ const Navigation: React.FC = () => {
   };
 
   const isActive = (path: string) => {
-    if (path === '/') return location.pathname === '/';
-    return location.pathname.startsWith(path.split('?')[0]);
+    const currentPath = location.pathname;
+    const currentSearch = location.search;
+    
+    // Para la ruta raíz
+    if (path === '/') {
+      return currentPath === '/';
+    }
+    
+    // Para rutas con query params específicos
+    if (path.includes('?')) {
+      const [pathPart, searchPart] = path.split('?');
+      return currentPath === pathPart && currentSearch.includes(searchPart);
+    }
+    
+    // Para rutas básicas
+    return currentPath === path;
   };
 
   const mobileDrawer = (
     <Box sx={{ width: 280 }}>
       <Box sx={{ 
         p: 3, 
-        background: `linear-gradient(135deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
+        background: 'linear-gradient(135deg, #000000, #333333)',
         color: 'white'
       }}>
         <Stack direction="row" spacing={2} alignItems="center">
@@ -218,56 +223,45 @@ const Navigation: React.FC = () => {
 
       <List sx={{ px: 1, py: 2 }}>
         {filteredItems.map((item, index) => (
-          <motion.div
+          <ListItemButton
             key={item.path}
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: index * 0.1 }}
+            onClick={() => handleNavigation(item.path)}
+            sx={{
+              borderRadius: 2,
+              mb: 0.5,
+              mx: 1,
+              background: isActive(item.path) 
+                ? 'rgba(0, 0, 0, 0.08)'
+                : 'transparent',
+              border: isActive(item.path) 
+                ? '1px solid rgba(0, 0, 0, 0.12)'
+                : '1px solid transparent'
+            }}
           >
-            <ListItemButton
-              onClick={() => handleNavigation(item.path)}
+            <ListItemIcon sx={{ 
+              color: isActive(item.path) ? '#000000' : 'inherit',
+              minWidth: 40
+            }}>
+              {item.icon}
+            </ListItemIcon>
+            <ListItemText 
+              primary={item.label}
               sx={{
-                borderRadius: 2,
-                mb: 0.5,
-                mx: 1,
-                background: isActive(item.path) 
-                  ? `linear-gradient(135deg, ${alpha(theme.palette.primary.main, 0.2)}, ${alpha(theme.palette.secondary.main, 0.2)})`
-                  : 'transparent',
-                border: isActive(item.path) 
-                  ? `1px solid ${alpha(theme.palette.primary.main, 0.3)}`
-                  : '1px solid transparent',
-                '&:hover': {
-                  background: `linear-gradient(135deg, ${alpha(theme.palette.primary.main, 0.1)}, ${alpha(theme.palette.secondary.main, 0.1)})`,
-                  transform: 'translateX(4px)'
-                },
-                transition: 'all 0.3s ease'
+                '& .MuiListItemText-primary': {
+                  fontWeight: isActive(item.path) ? 600 : 400,
+                  color: isActive(item.path) ? '#000000' : 'inherit'
+                }
               }}
-            >
-              <ListItemIcon sx={{ 
-                color: isActive(item.path) ? theme.palette.primary.main : 'inherit',
-                minWidth: 40
-              }}>
-                {item.icon}
-              </ListItemIcon>
-              <ListItemText 
-                primary={item.label}
-                sx={{
-                  '& .MuiListItemText-primary': {
-                    fontWeight: isActive(item.path) ? 600 : 400,
-                    color: isActive(item.path) ? theme.palette.primary.main : 'inherit'
-                  }
-                }}
+            />
+            {item.badge && (
+              <Chip 
+                label={item.badge}
+                size="small"
+                color="error"
+                sx={{ ml: 1, minWidth: 20, height: 20 }}
               />
-              {item.badge && (
-                <Chip 
-                  label={item.badge}
-                  size="small"
-                  color="error"
-                  sx={{ ml: 1, minWidth: 20, height: 20 }}
-                />
-              )}
-            </ListItemButton>
-          </motion.div>
+            )}
+          </ListItemButton>
         ))}
       </List>
 
@@ -279,13 +273,10 @@ const Navigation: React.FC = () => {
           sx={{
             borderRadius: 2,
             mx: 1,
-            color: theme.palette.error.main,
-            '&:hover': {
-              background: alpha(theme.palette.error.main, 0.1)
-            }
+            color: '#dc2626'
           }}
         >
-          <ListItemIcon sx={{ color: theme.palette.error.main, minWidth: 40 }}>
+          <ListItemIcon sx={{ color: '#dc2626', minWidth: 40 }}>
             <Logout />
           </ListItemIcon>
           <ListItemText primary="Cerrar Sesión" />
@@ -298,10 +289,11 @@ const Navigation: React.FC = () => {
     return (
       <AppBar 
         position="sticky" 
+        elevation={0}
         sx={{ 
-          background: `linear-gradient(135deg, ${alpha(theme.palette.background.paper, 0.9)}, ${alpha(theme.palette.background.paper, 0.95)})`,
-          backdropFilter: 'blur(10px)',
-          borderBottom: `1px solid ${alpha(theme.palette.primary.main, 0.1)}`
+          backgroundColor: '#ffffff',
+          borderBottom: '1px solid #e5e5e5',
+          boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)'
         }}
       >
         <Toolbar>
@@ -310,21 +302,17 @@ const Navigation: React.FC = () => {
             sx={{ 
               flexGrow: 1, 
               fontWeight: 700,
-              background: `linear-gradient(135deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
-              backgroundClip: 'text',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent'
+              color: '#000000'
             }}
           >
-            💇‍♀️ PeluMous
+            Moestilos
           </Typography>
           <Button 
-            variant="outlined" 
+            variant="contained" 
             onClick={() => navigate('/auth')}
             sx={{ 
-              borderRadius: 3,
-              textTransform: 'none',
-              fontWeight: 600
+              backgroundColor: '#000000',
+              color: '#ffffff'
             }}
           >
             Iniciar Sesión
@@ -338,11 +326,11 @@ const Navigation: React.FC = () => {
     <>
       <AppBar 
         position="sticky" 
+        elevation={0}
         sx={{ 
-          background: `linear-gradient(135deg, ${alpha(theme.palette.background.paper, 0.95)}, ${alpha(theme.palette.background.paper, 0.98)})`,
-          backdropFilter: 'blur(20px)',
-          borderBottom: `1px solid ${alpha(theme.palette.primary.main, 0.1)}`,
-          boxShadow: `0 4px 20px ${alpha(theme.palette.primary.main, 0.1)}`
+          backgroundColor: '#ffffff',
+          borderBottom: '1px solid #e5e5e5',
+          boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)'
         }}
       >
         <Toolbar>
@@ -352,7 +340,7 @@ const Navigation: React.FC = () => {
               aria-label="open drawer"
               edge="start"
               onClick={handleMobileMenuToggle}
-              sx={{ mr: 2 }}
+              sx={{ mr: 2, color: '#000000' }}
             >
               <MenuIcon />
             </IconButton>
@@ -364,44 +352,42 @@ const Navigation: React.FC = () => {
               flexGrow: isMobile ? 1 : 0,
               mr: isMobile ? 0 : 4,
               fontWeight: 700,
-              background: `linear-gradient(135deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
-              backgroundClip: 'text',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
+              color: '#000000',
               cursor: 'pointer'
             }}
             onClick={() => navigate('/')}
           >
-            💇‍♀️ PeluMous
+            Moestilos
           </Typography>
 
           {!isMobile && (
-            <Box sx={{ flexGrow: 1, display: 'flex', gap: 1 }}>
-              {filteredItems.map((item) => (
-                <motion.div
+            <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center', position: 'relative' }}>
+              {filteredItems.map((item, index) => (
+                <Box
                   key={item.path}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
+                  sx={{ 
+                    position: 'relative',
+                    '&:not(:last-child)': { mr: 4 }
+                  }}
                 >
                   <Button
                     startIcon={item.icon}
                     onClick={() => handleNavigation(item.path)}
                     sx={{
-                      borderRadius: 3,
+                      borderRadius: 0,
                       textTransform: 'none',
-                      fontWeight: 500,
-                      px: 2,
-                      py: 1,
+                      fontWeight: isActive(item.path) ? 600 : 500,
+                      px: 0,
+                      py: 2,
+                      minWidth: 'auto',
                       position: 'relative',
-                      background: isActive(item.path)
-                        ? `linear-gradient(135deg, ${alpha(theme.palette.primary.main, 0.2)}, ${alpha(theme.palette.secondary.main, 0.2)})`
-                        : 'transparent',
-                      color: isActive(item.path) ? theme.palette.primary.main : 'inherit',
-                      border: isActive(item.path) 
-                        ? `1px solid ${alpha(theme.palette.primary.main, 0.3)}`
-                        : '1px solid transparent',
-                      '&:hover': {
-                        background: `linear-gradient(135deg, ${alpha(theme.palette.primary.main, 0.1)}, ${alpha(theme.palette.secondary.main, 0.1)})`,
+                      background: 'transparent',
+                      color: isActive(item.path) ? '#000000' : '#666666',
+                      border: 'none',
+                      fontFamily: '"Inter", "Roboto", "Helvetica", "Arial", sans-serif',
+                      fontSize: '0.95rem',
+                      '& .MuiButton-startIcon': {
+                        marginRight: '8px'
                       }
                     }}
                   >
@@ -410,25 +396,45 @@ const Navigation: React.FC = () => {
                       <Chip 
                         label={item.badge}
                         size="small"
-                        color="error"
                         sx={{ 
-                          ml: 1, 
-                          minWidth: 20, 
+                          ml: 1,
                           height: 20,
-                          position: 'absolute',
-                          top: -8,
-                          right: -8
+                          backgroundColor: '#dc2626',
+                          color: 'white',
+                          fontSize: '0.75rem',
+                          fontWeight: 600
                         }}
                       />
                     )}
                   </Button>
-                </motion.div>
+                  
+                  {/* Línea indicadora animada */}
+                  {isActive(item.path) && (
+                    <motion.div
+                      layoutId="activeTab"
+                      style={{
+                        position: 'absolute',
+                        bottom: 0,
+                        left: 0,
+                        right: 0,
+                        height: 3,
+                        backgroundColor: '#000000',
+                        borderRadius: '2px 2px 0 0'
+                      }}
+                      transition={{
+                        type: "tween",
+                        duration: 0.3,
+                        ease: "easeInOut"
+                      }}
+                    />
+                  )}
+                </Box>
               ))}
             </Box>
           )}
 
           <Stack direction="row" spacing={1} alignItems="center">
-            <IconButton>
+            <IconButton sx={{ color: '#000000' }}>
               <Notifications />
             </IconButton>
             
@@ -445,7 +451,7 @@ const Navigation: React.FC = () => {
                 <Avatar sx={{ 
                   width: 32, 
                   height: 32,
-                  background: `linear-gradient(135deg, ${getRoleColor(user.rol)}, ${alpha(getRoleColor(user.rol), 0.7)})`
+                  background: getRoleColor(user.rol)
                 }}
                 src={user.profileImage ? `http://localhost:5000${user.profileImage}` : undefined}
                 >
@@ -476,9 +482,9 @@ const Navigation: React.FC = () => {
             borderRadius: 3,
             mt: 1,
             minWidth: 200,
-            background: alpha(theme.palette.background.paper, 0.95),
-            backdropFilter: 'blur(10px)',
-            border: `1px solid ${alpha(theme.palette.primary.main, 0.1)}`
+            backgroundColor: '#ffffff',
+            border: '1px solid #e5e5e5',
+            boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
           }
         }}
       >
@@ -488,23 +494,17 @@ const Navigation: React.FC = () => {
           </ListItemIcon>
           Mi Perfil
         </MenuItem>
-        <MenuItem onClick={handleMenuClose} sx={{ borderRadius: 2, mx: 1 }}>
-          <ListItemIcon>
-            <Settings fontSize="small" />
-          </ListItemIcon>
-          Configuración
-        </MenuItem>
         <Divider sx={{ my: 1 }} />
         <MenuItem 
           onClick={handleLogout} 
           sx={{ 
             borderRadius: 2, 
             mx: 1, 
-            color: theme.palette.error.main 
+            color: '#dc2626' 
           }}
         >
           <ListItemIcon>
-            <Logout fontSize="small" sx={{ color: theme.palette.error.main }} />
+            <Logout fontSize="small" sx={{ color: '#dc2626' }} />
           </ListItemIcon>
           Cerrar Sesión
         </MenuItem>
@@ -522,8 +522,7 @@ const Navigation: React.FC = () => {
           '& .MuiDrawer-paper': { 
             boxSizing: 'border-box', 
             width: 280,
-            background: alpha(theme.palette.background.paper, 0.95),
-            backdropFilter: 'blur(10px)'
+            backgroundColor: '#ffffff'
           },
         }}
       >

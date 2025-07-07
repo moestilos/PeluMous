@@ -96,7 +96,7 @@ const WelcomePanel: React.FC = () => {
                   ✂️
                 </Avatar>
                 <Typography variant="h3" sx={{ fontWeight: 700, mb: 2 }}>
-                  Bienvenido a Bella Vista
+                  Bienvenido a Moestilos
                 </Typography>
                 <Typography variant="h6" sx={{ opacity: 0.9, mb: 3 }}>
                   Tu centro de belleza profesional
@@ -105,10 +105,14 @@ const WelcomePanel: React.FC = () => {
                   <Alert 
                     severity="success" 
                     sx={{ 
-                      background: 'rgba(255,255,255,0.15)',
-                      color: 'white',
-                      border: '1px solid rgba(255,255,255,0.3)',
-                      '& .MuiAlert-icon': { color: 'white' }
+                      backgroundColor: '#ffffff !important',
+                      color: '#000000 !important',
+                      border: '2px solid #000000 !important',
+                      borderRadius: '8px !important',
+                      boxShadow: '4px 4px 0px #000000 !important',
+                      '& .MuiAlert-icon': { 
+                        color: '#000000 !important' 
+                      }
                     }}
                   >
                     ¡Bienvenido de vuelta, {user.nombre}! Que tengas un excelente día.
@@ -118,32 +122,6 @@ const WelcomePanel: React.FC = () => {
                     Descubre nuestros servicios profesionales de belleza
                   </Typography>
                 )}
-                
-                {/* Elementos decorativos */}
-                <Box
-                  sx={{
-                    position: 'absolute',
-                    top: -50,
-                    left: -50,
-                    width: 150,
-                    height: 150,
-                    borderRadius: '50%',
-                    background: 'rgba(255,255,255,0.1)',
-                    filter: 'blur(20px)'
-                  }}
-                />
-                <Box
-                  sx={{
-                    position: 'absolute',
-                    bottom: -30,
-                    right: -30,
-                    width: 100,
-                    height: 100,
-                    borderRadius: '50%',
-                    background: 'rgba(255,255,255,0.1)',
-                    filter: 'blur(15px)'
-                  }}
-                />
               </CardContent>
             </Card>
           </motion.div>

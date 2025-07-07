@@ -13,6 +13,7 @@ import {
   DialogContent,
   DialogActions,
   Alert,
+  useTheme,
   Stack,
   Avatar,
   Divider
@@ -44,6 +45,7 @@ interface Service {
 const Home: React.FC = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
+  const theme = useTheme();
   const [services, setServices] = useState<Service[]>([]);
   const [showLoginDialog, setShowLoginDialog] = useState(false);
   const [selectedService, setSelectedService] = useState<Service | null>(null);
@@ -57,8 +59,22 @@ const Home: React.FC = () => {
       const response = await axios.get('http://localhost:5000/api/services');
       setServices(response.data);
     } catch (error) {
-      console.error('Error fetching services:', error);
+      console.error('Error cargando servicios:', error);
     }
+  };
+
+  const handleBookAppointment = (service: Service) => {
+    if (!user) {
+      setSelectedService(service);
+      setShowLoginDialog(true);
+    } else {
+      navigate('/dashboard');
+    }
+  };
+
+  const handleLogin = () => {
+    setShowLoginDialog(false);
+    navigate('/auth');
   };
 
   const getCategoryIcon = (categoria: string) => {
@@ -80,20 +96,6 @@ const Home: React.FC = () => {
       case 'manicura': return 'info';
       default: return 'default';
     }
-  };
-
-  const handleBookAppointment = (service: Service) => {
-    if (!user) {
-      setSelectedService(service);
-      setShowLoginDialog(true);
-    } else {
-      navigate('/dashboard?section=newAppointment');
-    }
-  };
-
-  const handleLoginRedirect = () => {
-    setShowLoginDialog(false);
-    navigate('/auth');
   };
 
   const containerVariants = {
@@ -154,6 +156,7 @@ const Home: React.FC = () => {
                 height: 200,
                 borderRadius: '50%',
                 background: 'radial-gradient(circle, rgba(102, 126, 234, 0.1), transparent)',
+                animation: 'float 6s ease-in-out infinite',
                 zIndex: 0
               }} />
               <Box sx={{
@@ -164,6 +167,7 @@ const Home: React.FC = () => {
                 height: 160,
                 borderRadius: '50%',
                 background: 'radial-gradient(circle, rgba(240, 147, 251, 0.1), transparent)',
+                animation: 'float 6s ease-in-out infinite 3s',
                 zIndex: 0
               }} />
               
@@ -306,45 +310,52 @@ const Home: React.FC = () => {
               gutterBottom 
               sx={{ 
                 textAlign: 'center', 
-                mb: 6,
-                fontWeight: 800,
-                background: 'linear-gradient(135deg, #667eea, #764ba2)',
+                mb: 4,
+                fontWeight: 700,
+                background: `linear-gradient(135deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
                 backgroundClip: 'text',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent'
               }}
             >
-              🌟 Nuestros Servicios
+              Nuestros Servicios
             </Typography>
 
             <Box sx={{ 
               display: 'grid', 
-              gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', 
-              gap: 4, 
+              gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', 
+              gap: 3, 
               mb: 6 
             }}>
               {services.map((service) => (
                 <motion.div
                   key={service._id}
                   whileHover={{ 
-                    y: -12,
+                    y: -8,
                     transition: { duration: 0.3 }
                   }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  <Card className="glass-effect hover-lift" sx={{ 
+                  <Card sx={{ 
                     height: '100%', 
                     display: 'flex', 
                     flexDirection: 'column',
-                    position: 'relative',
-                    overflow: 'hidden'
+                    border: '2px solid #000000',
+                    background: '#ffffff',
+                    borderRadius: 2,
+                    boxShadow: '4px 4px 0px #000000',
+                    transition: 'all 0.3s ease',
+                    '&:hover': {
+                      transform: 'translate(-2px, -2px)',
+                      boxShadow: '6px 6px 0px #000000'
+                    }
                   }}>
-                    <CardContent sx={{ flexGrow: 1, p: 4 }}>
-                      <Stack direction="row" alignItems="center" spacing={2} sx={{ mb: 3 }}>
-                        <Avatar sx={{
-                          background: 'linear-gradient(135deg, #667eea, #764ba2)',
-                          width: 56,
-                          height: 56
+                    <CardContent sx={{ flexGrow: 1, p: 3 }}>
+                      <Stack direction="row" alignItems="center" spacing={2} sx={{ mb: 2 }}>
+                        <Avatar sx={{ 
+                          background: `linear-gradient(135deg, ${theme.palette.primary.main}, ${theme.palette.primary.dark})`,
+                          width: 48,
+                          height: 48
                         }}>
                           {getCategoryIcon(service.categoria)}
                         </Avatar>
@@ -368,20 +379,20 @@ const Home: React.FC = () => {
                         sx={{ 
                           mb: 3,
                           lineHeight: 1.6,
-                          minHeight: 60
+                          minHeight: 40
                         }}
                       >
                         {service.descripcion}
                       </Typography>
                       
-                      <Divider sx={{ mb: 3, opacity: 0.3 }} />
+                      <Divider sx={{ mb: 2, opacity: 0.3 }} />
                       
                       <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 3 }}>
                         <Typography 
                           variant="h5" 
                           sx={{ 
-                            fontWeight: 800,
-                            background: 'linear-gradient(135deg, #667eea, #f093fb)',
+                            fontWeight: 700,
+                            background: `linear-gradient(135deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
                             backgroundClip: 'text',
                             WebkitBackgroundClip: 'text',
                             WebkitTextFillColor: 'transparent'
@@ -390,8 +401,8 @@ const Home: React.FC = () => {
                           ${service.precio}
                         </Typography>
                         <Stack direction="row" alignItems="center" spacing={0.5}>
-                          <AccessTime fontSize="small" sx={{ color: '#667eea' }} />
-                          <Typography variant="body2" sx={{ fontWeight: 500, color: '#667eea' }}>
+                          <AccessTime fontSize="small" color="action" />
+                          <Typography variant="body2" color="text.secondary" sx={{ fontWeight: 500 }}>
                             {service.duracion} min
                           </Typography>
                         </Stack>
@@ -404,19 +415,20 @@ const Home: React.FC = () => {
                         onClick={() => handleBookAppointment(service)}
                         sx={{
                           fontWeight: 600,
-                          py: 2,
-                          background: 'linear-gradient(135deg, #667eea, #764ba2)',
-                          borderRadius: '12px',
-                          fontSize: '1rem',
-                          textTransform: 'none',
+                          py: 1.5,
+                          backgroundColor: '#000000 !important',
+                          color: '#ffffff !important',
+                          border: '2px solid #000000 !important',
+                          borderRadius: '8px !important',
+                          boxShadow: '4px 4px 0px #333333 !important',
                           '&:hover': {
-                            background: 'linear-gradient(135deg, #5a67d8, #667eea)',
-                            transform: 'translateY(-2px)',
-                            boxShadow: '0 8px 30px rgba(102, 126, 234, 0.4)'
+                            backgroundColor: '#333333 !important',
+                            transform: 'translate(2px, 2px)',
+                            boxShadow: '2px 2px 0px #333333 !important'
                           }
                         }}
                       >
-                        {user ? '📅 Reservar Cita' : '🔐 Iniciar Sesión para Reservar'}
+                        {user ? 'Reservar Cita' : 'Iniciar Sesión para Reservar'}
                       </Button>
                     </CardContent>
                   </Card>
@@ -424,6 +436,8 @@ const Home: React.FC = () => {
               ))}
             </Box>
           </motion.div>
+
+          {/* Información de contacto y horarios movida al footer para evitar duplicación */}
         </Container>
 
         {/* Login Dialog Mejorado */}
@@ -433,17 +447,16 @@ const Home: React.FC = () => {
           PaperProps={{
             sx: {
               borderRadius: 3,
-              background: 'rgba(255, 255, 255, 0.95)',
-              backdropFilter: 'blur(20px)',
-              border: '1px solid rgba(255, 255, 255, 0.2)',
-              boxShadow: '0 20px 60px rgba(30, 41, 59, 0.2)'
+              background: '#ffffff',
+              border: '2px solid #000000',
+              boxShadow: '6px 6px 0px #000000'
             }
           }}
         >
           <DialogTitle sx={{ pb: 1 }}>
             <Stack direction="row" alignItems="center" spacing={2}>
               <Avatar sx={{ 
-                background: 'linear-gradient(135deg, #667eea, #764ba2)'
+                background: `linear-gradient(135deg, ${theme.palette.primary.main}, ${theme.palette.primary.dark})`
               }}>
                 <AutoAwesome />
               </Avatar>
@@ -463,21 +476,29 @@ const Home: React.FC = () => {
           <DialogActions sx={{ p: 3, pt: 1 }}>
             <Button 
               onClick={() => setShowLoginDialog(false)}
-              sx={{ color: 'text.secondary' }}
+              sx={{ fontWeight: 600 }}
             >
               Cancelar
             </Button>
             <Button 
-              onClick={handleLoginRedirect}
+              onClick={handleLogin} 
               variant="contained"
-              sx={{
-                background: 'linear-gradient(135deg, #667eea, #764ba2)',
+              sx={{ 
+                fontWeight: 600,
+                px: 3,
+                backgroundColor: '#000000 !important',
+                color: '#ffffff !important',
+                border: '2px solid #000000 !important',
+                borderRadius: '8px !important',
+                boxShadow: '4px 4px 0px #333333 !important',
                 '&:hover': {
-                  background: 'linear-gradient(135deg, #5a67d8, #667eea)',
+                  backgroundColor: '#333333 !important',
+                  transform: 'translate(2px, 2px)',
+                  boxShadow: '2px 2px 0px #333333 !important'
                 }
               }}
             >
-              Iniciar Sesión
+              Iniciar Sesión / Registrarse
             </Button>
           </DialogActions>
         </Dialog>

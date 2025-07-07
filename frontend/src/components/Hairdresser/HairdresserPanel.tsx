@@ -214,7 +214,14 @@ const HairdresserPanel: React.FC = () => {
       )}
 
       {/* Resumen del día */}
-      <Card sx={{ mb: 3, background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', color: 'white' }}>
+      <Card sx={{ 
+        mb: 3, 
+        backgroundColor: '#ffffff !important',
+        border: '3px solid #000000 !important',
+        borderRadius: '12px !important',
+        boxShadow: '8px 8px 0px #000000 !important',
+        color: '#000000 !important'
+      }}>
         <CardContent>
           <Typography variant="h6" sx={{ mb: 2 }}>
             Citas de Hoy

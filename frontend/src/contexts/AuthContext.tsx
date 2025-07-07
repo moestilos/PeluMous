@@ -17,6 +17,7 @@ interface AuthContextType {
   register: (userData: RegisterData) => Promise<void>;
   logout: () => void;
   updateUser: (userData: Partial<User>) => void;
+  refreshUserProfile: () => Promise<void>;
   loading: boolean;
 }
 
@@ -64,11 +65,24 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
             headers: { Authorization: `Bearer ${token}` }
           });
           setUser(response.data.user);
+          // Actualizar localStorage con los datos más recientes
+          localStorage.setItem('user', JSON.stringify(response.data.user));
         } catch (error) {
           localStorage.removeItem('token');
           localStorage.removeItem('user');
           setToken(null);
           setUser(null);
+        }
+      } else {
+        // Si no hay token, verificar si hay usuario en localStorage
+        const storedUser = localStorage.getItem('user');
+        if (storedUser) {
+          try {
+            const parsedUser = JSON.parse(storedUser);
+            setUser(parsedUser);
+          } catch (error) {
+            localStorage.removeItem('user');
+          }
         }
       }
       setLoading(false);
@@ -127,6 +141,20 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
+  const refreshUserProfile = async () => {
+    if (token) {
+      try {
+        const response = await axios.get('http://localhost:5000/api/users/profile', {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        setUser(response.data);
+        localStorage.setItem('user', JSON.stringify(response.data));
+      } catch (error) {
+        console.error('Error refreshing user profile:', error);
+      }
+    }
+  };
+
   const value = {
     user,
     token,
@@ -134,6 +162,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     register,
     logout,
     updateUser,
+    refreshUserProfile,
     loading
   };
 

@@ -6,29 +6,14 @@ import {
   Button, 
   Card, 
   CardContent, 
-  Stack,
-  Chip,
-  Alert,
-  Avatar,
-  useTheme,
-  alpha
+  Stack
 } from '@mui/material';
-import { 
-  Login as LoginIcon,
-  ContentCut as ServiceIcon,
-  Schedule as AppointmentIcon,
-  Star as StarIcon,
-  Person as PersonIcon,
-  AdminPanelSettings as AdminIcon,
-  Brush as BrushIcon
-} from '@mui/icons-material';
 import { useAuth } from '../../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
 const WelcomePanel: React.FC = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
-  const theme = useTheme();
 
   const handleLoginRedirect = () => {
     navigate('/auth');
@@ -51,19 +36,19 @@ const WelcomePanel: React.FC = () => {
     visible: {
       opacity: 1,
       transition: {
-        duration: 0.8,
-        staggerChildren: 0.2
+        duration: 0.6,
+        staggerChildren: 0.1
       }
     }
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
+    hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.6
+        duration: 0.4
       }
     }
   };
@@ -75,205 +60,218 @@ const WelcomePanel: React.FC = () => {
       animate="visible"
     >
       <Box sx={{ mb: 6 }}>
-        <Stack spacing={4}>
-          {/* Panel de bienvenida principal */}
+        <Stack spacing={5}>
+          {/* Hero Section Principal */}
           <motion.div variants={itemVariants}>
-            <Card sx={{ 
-              background: `linear-gradient(135deg, ${theme.palette.primary.main} 0%, ${theme.palette.secondary.main} 100%)`,
-              color: 'white',
-              position: 'relative',
-              overflow: 'hidden'
+            <Box sx={{ 
+              textAlign: 'center',
+              py: { xs: 6, md: 8 },
+              px: { xs: 2, md: 4 }
             }}>
-              <CardContent sx={{ p: 6, textAlign: 'center' }}>
-                <Avatar sx={{ 
-                  width: 80, 
-                  height: 80, 
-                  mx: 'auto', 
-                  mb: 3,
-                  background: 'rgba(255,255,255,0.2)',
-                  fontSize: '2.5rem'
+              <Typography variant="h1" sx={{ 
+                fontWeight: 800, 
+                mb: 3,
+                fontSize: { xs: '3rem', md: '4.5rem' },
+                color: '#000000',
+                textShadow: '2px 2px 4px rgba(0,0,0,0.1)',
+                letterSpacing: '-0.02em'
+              }}>
+                Bienvenido a Moestilos
+              </Typography>
+              
+              <Typography variant="h5" sx={{ 
+                mb: 4,
+                fontSize: { xs: '1.2rem', md: '1.4rem' },
+                color: '#333333',
+                maxWidth: '600px',
+                mx: 'auto',
+                lineHeight: 1.4
+              }}>
+                Tu centro de belleza profesional donde el estilo se encuentra con la excelencia
+              </Typography>
+
+              {user && (
+                <Box sx={{
+                  display: 'inline-block',
+                  backgroundColor: 'rgba(0,0,0,0.05)',
+                  border: '2px solid #000000',
+                  borderRadius: 3,
+                  px: 4,
+                  py: 2,
+                  mb: 4
                 }}>
-                  ✂️
-                </Avatar>
-                <Typography variant="h3" sx={{ fontWeight: 700, mb: 2 }}>
-                  Bienvenido a Bella Vista
-                </Typography>
-                <Typography variant="h6" sx={{ opacity: 0.9, mb: 3 }}>
-                  Tu centro de belleza profesional
-                </Typography>
-                {user ? (
-                  <Alert 
-                    severity="success" 
-                    sx={{ 
-                      background: 'rgba(255,255,255,0.15)',
-                      color: 'white',
-                      border: '1px solid rgba(255,255,255,0.3)',
-                      '& .MuiAlert-icon': { color: 'white' }
-                    }}
-                  >
-                    ¡Bienvenido de vuelta, {user.nombre}! Que tengas un excelente día.
-                  </Alert>
-                ) : (
-                  <Typography variant="h6" sx={{ opacity: 0.8 }}>
-                    Descubre nuestros servicios profesionales de belleza
+                  <Typography variant="h6" sx={{ 
+                    color: '#000000',
+                    fontWeight: 600
+                  }}>
+                    Hola, {user.nombre}
                   </Typography>
-                )}
-                
-                {/* Elementos decorativos */}
-                <Box
-                  sx={{
-                    position: 'absolute',
-                    top: -50,
-                    left: -50,
-                    width: 150,
-                    height: 150,
-                    borderRadius: '50%',
-                    background: 'rgba(255,255,255,0.1)',
-                    filter: 'blur(20px)'
-                  }}
-                />
-                <Box
-                  sx={{
-                    position: 'absolute',
-                    bottom: -30,
-                    right: -30,
-                    width: 100,
-                    height: 100,
-                    borderRadius: '50%',
-                    background: 'rgba(255,255,255,0.1)',
-                    filter: 'blur(15px)'
-                  }}
-                />
-              </CardContent>
-            </Card>
+                </Box>
+              )}
+            </Box>
           </motion.div>
 
-          {/* Panel de acceso para usuarios no autenticados */}
-          {!user && (
-            <motion.div variants={itemVariants}>
+          {/* Sección de Acceso Mejorada */}
+          <motion.div variants={itemVariants}>
+            <Box sx={{ 
+              display: 'flex',
+              justifyContent: 'center',
+              px: { xs: 2, md: 4 }
+            }}>
               <Card sx={{ 
-                border: `2px solid ${theme.palette.primary.main}`,
-                background: alpha(theme.palette.primary.main, 0.05)
+                maxWidth: '500px',
+                width: '100%',
+                backgroundColor: '#ffffff',
+                border: '3px solid #000000',
+                borderRadius: 4,
+                boxShadow: '8px 8px 0px #000000',
+                transition: 'all 0.3s ease',
+                '&:hover': {
+                  transform: 'translate(-2px, -2px)',
+                  boxShadow: '12px 12px 0px #000000'
+                }
               }}>
-                <CardContent sx={{ p: 4 }}>
-                  <Stack direction={{ xs: 'column', md: 'row' }} spacing={3} alignItems="center" justifyContent="space-between">
-                    <Box sx={{ flex: 1 }}>
-                      <Stack direction="row" spacing={2} alignItems="center" sx={{ mb: 2 }}>
-                        <Avatar sx={{ background: theme.palette.primary.main }}>
-                          <LoginIcon />
-                        </Avatar>
-                        <Box>
-                          <Typography variant="h5" sx={{ fontWeight: 700 }}>
-                            Acceso al Sistema
-                          </Typography>
-                          <Chip label="Iniciar Sesión" color="primary" size="small" sx={{ mt: 0.5 }} />
-                        </Box>
-                      </Stack>
-                      <Typography variant="body1" color="text.secondary" sx={{ mb: 2 }}>
-                        Inicia sesión para acceder a tus citas, servicios y mucho más
-                      </Typography>
-                      <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
-                        <Chip icon={<AppointmentIcon />} label="Reservar Citas" variant="outlined" size="small" />
-                        <Chip icon={<ServiceIcon />} label="Ver Servicios" variant="outlined" size="small" />
-                        <Chip icon={<StarIcon />} label="Seguimiento" variant="outlined" size="small" />
-                      </Stack>
-                    </Box>
-                    <Button 
-                      variant="contained" 
-                      color="primary"
-                      size="large"
-                      onClick={handleLoginRedirect}
-                      startIcon={<LoginIcon />}
-                      sx={{ fontWeight: 600, px: 4, py: 1.5 }}
-                    >
-                      Iniciar Sesión
-                    </Button>
-                  </Stack>
-                </CardContent>
-              </Card>
-            </motion.div>
-          )}
-
-          {/* Panel de acceso rápido para usuarios autenticados */}
-          {user && (
-            <motion.div variants={itemVariants}>
-              <Card sx={{ 
-                border: `2px solid ${theme.palette.primary.main}`,
-                background: alpha(theme.palette.primary.main, 0.05),
-                position: 'relative'
-              }}>
-                <CardContent sx={{ p: 4 }}>
-                  <Stack direction={{ xs: 'column', md: 'row' }} spacing={3} alignItems="center" justifyContent="space-between">
-                    <Box sx={{ flex: 1 }}>
-                      <Stack direction="row" spacing={2} alignItems="center" sx={{ mb: 2 }}>
-                        <Avatar sx={{ 
-                          background: theme.palette.primary.main,
-                          width: 48,
-                          height: 48 
-                        }}>
-                          {user.rol === 'admin' ? <AdminIcon /> : 
-                           user.rol === 'peluquero' ? <BrushIcon /> : <PersonIcon />}
-                        </Avatar>
-                        <Box>
-                          <Typography variant="h5" sx={{ fontWeight: 700 }}>
-                            Acceso Rápido
-                          </Typography>
-                          <Chip 
-                            label={user.rol === 'admin' ? 'Administrador' : 
-                                  user.rol === 'peluquero' ? 'Peluquero' : 'Cliente'} 
-                            color="primary" 
-                            size="small" 
-                            sx={{ mt: 0.5 }} 
-                          />
-                        </Box>
-                      </Stack>
-                      <Typography variant="body1" color="text.secondary">
-                        Accede a tu panel de control personalizado
-                      </Typography>
+                <CardContent sx={{ p: 5 }}>
+                  <Stack spacing={4} alignItems="center">
+                    <Box sx={{ 
+                      width: 80,
+                      height: 80,
+                      backgroundColor: '#000000',
+                      borderRadius: '50%',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: 'white',
+                      fontSize: '2rem'
+                    }}>
+                      {!user ? '🔐' : 
+                       user.rol === 'admin' ? '👑' : 
+                       user.rol === 'peluquero' ? '✂️' : '👤'}
                     </Box>
                     
-                    <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
-                      <Button 
-                        variant="contained" 
-                        color="primary"
-                        size="large"
-                        onClick={handleDashboardRedirect}
-                        sx={{ fontWeight: 600, px: 3, py: 1.5 }}
-                      >
-                        Dashboard
-                      </Button>
-                      
-                      {user.rol === 'admin' && (
+                    <Typography variant="h4" sx={{ 
+                      fontWeight: 700,
+                      color: '#000000',
+                      textAlign: 'center'
+                    }}>
+                      {!user ? 'Acceso al Sistema' : 'Tu Panel'}
+                    </Typography>
+                    
+                    <Stack 
+                      spacing={2} 
+                      sx={{ width: '100%' }}
+                    >
+                      {!user ? (
                         <Button 
-                          variant="outlined" 
-                          color="error"
+                          variant="contained" 
                           size="large"
-                          onClick={handleAdminRedirect}
-                          startIcon={<AdminIcon />}
-                          sx={{ fontWeight: 600, px: 3, py: 1.5 }}
+                          onClick={handleLoginRedirect}
+                          fullWidth
+                          sx={{ 
+                            fontWeight: 700, 
+                            py: 2,
+                            backgroundColor: '#000000',
+                            fontSize: '1.1rem',
+                            borderRadius: 2,
+                            border: '2px solid transparent',
+                            '&:hover': {
+                              backgroundColor: '#000000',
+                              border: '2px solid #333333',
+                              transform: 'translateY(-2px)'
+                            },
+                            transition: 'all 0.2s ease'
+                          }}
                         >
-                          Panel Admin
+                          Iniciar Sesión
                         </Button>
-                      )}
-                      
-                      {user.rol === 'peluquero' && (
-                        <Button 
-                          variant="outlined" 
-                          color="secondary"
-                          size="large"
-                          onClick={handleHairdresserRedirect}
-                          startIcon={<BrushIcon />}
-                          sx={{ fontWeight: 600, px: 3, py: 1.5 }}
-                        >
-                          Panel Peluquero
-                        </Button>
+                      ) : (
+                        <>
+                          <Button 
+                            variant="contained" 
+                            size="large"
+                            onClick={handleDashboardRedirect}
+                            fullWidth
+                            sx={{ 
+                              fontWeight: 700, 
+                              py: 2,
+                              backgroundColor: '#000000',
+                              fontSize: '1rem',
+                              borderRadius: 2,
+                              border: '2px solid transparent',
+                              '&:hover': {
+                                backgroundColor: '#000000',
+                                border: '2px solid #333333',
+                                transform: 'translateY(-2px)'
+                              },
+                              transition: 'all 0.2s ease'
+                            }}
+                          >
+                            Mi Dashboard
+                          </Button>
+                          
+                          {user.rol === 'admin' && (
+                            <Button 
+                              variant="outlined" 
+                              size="large"
+                              onClick={handleAdminRedirect}
+                              fullWidth
+                              sx={{ 
+                                fontWeight: 700, 
+                                py: 2,
+                                borderColor: '#000000',
+                                color: '#000000',
+                                fontSize: '1rem',
+                                borderRadius: 2,
+                                borderWidth: '2px',
+                                '&:hover': {
+                                  borderColor: '#000000',
+                                  color: '#000000',
+                                  backgroundColor: 'rgba(0,0,0,0.05)',
+                                  transform: 'translateY(-2px)',
+                                  borderWidth: '2px'
+                                },
+                                transition: 'all 0.2s ease'
+                              }}
+                            >
+                              Panel Administrador
+                            </Button>
+                          )}
+                          
+                          {user.rol === 'peluquero' && (
+                            <Button 
+                              variant="outlined" 
+                              size="large"
+                              onClick={handleHairdresserRedirect}
+                              fullWidth
+                              sx={{ 
+                                fontWeight: 700, 
+                                py: 2,
+                                borderColor: '#000000',
+                                color: '#000000',
+                                fontSize: '1rem',
+                                borderRadius: 2,
+                                borderWidth: '2px',
+                                '&:hover': {
+                                  borderColor: '#000000',
+                                  color: '#000000',
+                                  backgroundColor: 'rgba(0,0,0,0.05)',
+                                  transform: 'translateY(-2px)',
+                                  borderWidth: '2px'
+                                },
+                                transition: 'all 0.2s ease'
+                              }}
+                            >
+                              Panel Peluquero
+                            </Button>
+                          )}
+                        </>
                       )}
                     </Stack>
                   </Stack>
                 </CardContent>
               </Card>
-            </motion.div>
-          )}
+            </Box>
+          </motion.div>
         </Stack>
       </Box>
     </motion.div>

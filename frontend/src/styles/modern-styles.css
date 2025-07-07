@@ -1,0 +1,440 @@
+/* ====================
+   ESTILOS MODERNOS PARA MOESTILOS
+   ==================== */
+
+/* Variables CSS para consistencia */
+:root {
+  --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  --glass-bg: rgba(255, 255, 255, 0.95);
+  --glass-border: rgba(255, 255, 255, 0.2);
+  --shadow-light: 0 4px 20px rgba(30, 41, 59, 0.1);
+  --shadow-medium: 0 8px 32px rgba(30, 41, 59, 0.15);
+  --shadow-heavy: 0 20px 60px rgba(30, 41, 59, 0.2);
+  --text-primary: #1e293b;
+  --text-secondary: #64748b;
+  --border-radius: 16px;
+  --border-radius-small: 12px;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Reset y base */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  background: var(--primary-gradient);
+  background-attachment: fixed;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+#root {
+  min-height: 100vh;
+  background: transparent;
+}
+
+/* ====================
+   COMPONENTES MATERIAL-UI MEJORADOS
+   ==================== */
+
+/* Cards con efecto glassmorphism */
+.MuiCard-root {
+  background: var(--glass-bg) !important;
+  backdrop-filter: blur(20px) !important;
+  border: 1px solid var(--glass-border) !important;
+  border-radius: 20px !important;
+  box-shadow: var(--shadow-medium) !important;
+  transition: var(--transition) !important;
+  overflow: hidden !important;
+}
+
+.MuiCard-root:hover {
+  transform: translateY(-8px) !important;
+  box-shadow: var(--shadow-heavy) !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+}
+
+/* Botones modernos */
+.MuiButton-root {
+  border-radius: var(--border-radius-small) !important;
+  font-weight: 600 !important;
+  text-transform: none !important;
+  position: relative !important;
+  overflow: hidden !important;
+  transition: var(--transition) !important;
+}
+
+.MuiButton-contained {
+  background: var(--primary-gradient) !important;
+  border: none !important;
+  box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3) !important;
+  color: white !important;
+}
+
+.MuiButton-contained:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 30px rgba(102, 126, 234, 0.4) !important;
+}
+
+.MuiButton-contained::before {
+  content: '' !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.2), transparent 70%) !important;
+  transform: translateX(-100%) !important;
+  transition: transform 0.6s !important;
+}
+
+.MuiButton-contained:hover::before {
+  transform: translateX(100%) !important;
+}
+
+.MuiButton-outlined {
+  border: 2px solid #667eea !important;
+  color: #667eea !important;
+  background: var(--glass-bg) !important;
+  backdrop-filter: blur(10px) !important;
+}
+
+.MuiButton-outlined:hover {
+  background: rgba(102, 126, 234, 0.1) !important;
+  border: 2px solid #5a67d8 !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 20px rgba(102, 126, 234, 0.2) !important;
+}
+
+/* Inputs con glassmorphism */
+.MuiTextField-root .MuiOutlinedInput-root {
+  border-radius: var(--border-radius-small) !important;
+  background: var(--glass-bg) !important;
+  backdrop-filter: blur(10px) !important;
+  border: 1px solid rgba(30, 41, 59, 0.1) !important;
+  transition: var(--transition) !important;
+}
+
+.MuiTextField-root .MuiOutlinedInput-root:hover {
+  border: 1px solid rgba(30, 41, 59, 0.2) !important;
+  box-shadow: var(--shadow-light) !important;
+}
+
+.MuiTextField-root .MuiOutlinedInput-root.Mui-focused {
+  border: 2px solid #667eea !important;
+  box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1) !important;
+}
+
+.MuiTextField-root .MuiOutlinedInput-notchedOutline {
+  border: none !important;
+}
+
+/* Chips modernos */
+.MuiChip-root {
+  border-radius: 10px !important;
+  font-weight: 600 !important;
+  background: var(--glass-bg) !important;
+  backdrop-filter: blur(10px) !important;
+  border: 1px solid rgba(30, 41, 59, 0.1) !important;
+  transition: var(--transition) !important;
+  height: 32px !important;
+}
+
+.MuiChip-root:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 16px rgba(30, 41, 59, 0.15) !important;
+}
+
+/* AppBar con glassmorphism */
+.MuiAppBar-root {
+  background: var(--glass-bg) !important;
+  backdrop-filter: blur(20px) !important;
+  box-shadow: 0 2px 20px rgba(30, 41, 59, 0.1) !important;
+  border: none !important;
+  border-bottom: 1px solid rgba(30, 41, 59, 0.1) !important;
+}
+
+/* Alerts mejorados */
+.MuiAlert-root {
+  border-radius: var(--border-radius-small) !important;
+  border: none !important;
+  backdrop-filter: blur(10px) !important;
+  box-shadow: var(--shadow-light) !important;
+}
+
+/* Avatars con sombra */
+.MuiAvatar-root {
+  box-shadow: 0 4px 20px rgba(30, 41, 59, 0.15) !important;
+}
+
+/* Papers con glassmorphism */
+.MuiPaper-root {
+  background: var(--glass-bg) !important;
+  backdrop-filter: blur(20px) !important;
+  border: 1px solid var(--glass-border) !important;
+}
+
+/* Tablas modernas */
+.MuiTableContainer-root {
+  background: var(--glass-bg) !important;
+  backdrop-filter: blur(20px) !important;
+  border: 1px solid var(--glass-border) !important;
+  border-radius: var(--border-radius) !important;
+  box-shadow: var(--shadow-medium) !important;
+}
+
+.MuiTableHead-root .MuiTableRow-root {
+  background: rgba(102, 126, 234, 0.1) !important;
+}
+
+.MuiTableHead-root .MuiTableCell-root {
+  background: transparent !important;
+  border-bottom: 2px solid rgba(102, 126, 234, 0.2) !important;
+  font-weight: 700 !important;
+  color: var(--text-primary) !important;
+}
+
+.MuiTableBody-root .MuiTableCell-root {
+  border-bottom: 1px solid rgba(30, 41, 59, 0.1) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Diálogos modernos */
+.MuiDialog-paper {
+  background: var(--glass-bg) !important;
+  backdrop-filter: blur(20px) !important;
+  border: 1px solid var(--glass-border) !important;
+  border-radius: 20px !important;
+  box-shadow: var(--shadow-heavy) !important;
+}
+
+/* Menús con glassmorphism */
+.MuiMenu-paper {
+  background: var(--glass-bg) !important;
+  backdrop-filter: blur(20px) !important;
+  border: 1px solid var(--glass-border) !important;
+  border-radius: var(--border-radius-small) !important;
+  box-shadow: var(--shadow-medium) !important;
+}
+
+.MuiMenuItem-root {
+  color: var(--text-primary) !important;
+  transition: var(--transition) !important;
+}
+
+.MuiMenuItem-root:hover {
+  background: rgba(102, 126, 234, 0.1) !important;
+}
+
+/* Toggle buttons */
+.MuiToggleButton-root {
+  background: var(--glass-bg) !important;
+  border: 2px solid rgba(30, 41, 59, 0.2) !important;
+  color: var(--text-primary) !important;
+  font-weight: 600 !important;
+  border-radius: var(--border-radius-small) !important;
+  transition: var(--transition) !important;
+}
+
+.MuiToggleButton-root.Mui-selected {
+  background: var(--primary-gradient) !important;
+  color: white !important;
+  border: 2px solid #667eea !important;
+}
+
+.MuiToggleButton-root:hover {
+  background: rgba(102, 126, 234, 0.1) !important;
+  border: 2px solid rgba(102, 126, 234, 0.3) !important;
+}
+
+/* Tabs modernos */
+.MuiTabs-root .MuiTab-root {
+  color: var(--text-secondary) !important;
+  font-weight: 600 !important;
+  text-transform: none !important;
+  transition: var(--transition) !important;
+}
+
+.MuiTabs-root .MuiTab-root.Mui-selected {
+  color: #667eea !important;
+}
+
+.MuiTabs-indicator {
+  background: var(--primary-gradient) !important;
+  height: 3px !important;
+  border-radius: 2px !important;
+}
+
+/* Lista items */
+.MuiListItemText-root .MuiTypography-root {
+  color: var(--text-primary) !important;
+}
+
+.MuiListItemButton-root {
+  border-radius: var(--border-radius-small) !important;
+  transition: var(--transition) !important;
+}
+
+.MuiListItemButton-root:hover {
+  background: rgba(102, 126, 234, 0.1) !important;
+}
+
+/* Iconos */
+.MuiListItemIcon-root {
+  color: #667eea !important;
+}
+
+/* Tipografía mejorada */
+.MuiTypography-h1,
+.MuiTypography-h2,
+.MuiTypography-h3,
+.MuiTypography-h4,
+.MuiTypography-h5,
+.MuiTypography-h6 {
+  color: var(--text-primary) !important;
+  font-weight: 700 !important;
+}
+
+.MuiTypography-body1 {
+  color: var(--text-primary) !important;
+}
+
+.MuiTypography-body2 {
+  color: var(--text-secondary) !important;
+}
+
+/* ====================
+   EFECTOS ESPECIALES
+   ==================== */
+
+/* Efecto hover para cards interactivas */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+.floating-card {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Gradiente de texto */
+.gradient-text {
+  background: var(--primary-gradient);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 800;
+}
+
+/* Botón con efecto shimmer */
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.shimmer-button::before {
+  animation: shimmer 2s infinite;
+}
+
+/* Scroll suave */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Scrollbar personalizada */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-gradient);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #5a67d8, #667eea);
+}
+
+/* ====================
+   RESPONSIVE DESIGN
+   ==================== */
+
+@media (max-width: 768px) {
+  .MuiCard-root {
+    border-radius: 16px !important;
+    margin: 8px !important;
+  }
+  
+  .MuiButton-root {
+    padding: 12px 20px !important;
+  }
+  
+  .MuiTypography-h1 {
+    font-size: 2.5rem !important;
+  }
+  
+  .MuiTypography-h2 {
+    font-size: 2rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .MuiCard-root {
+    border-radius: 12px !important;
+    margin: 4px !important;
+  }
+  
+  .MuiTypography-h1 {
+    font-size: 2rem !important;
+  }
+  
+  .MuiTypography-h2 {
+    font-size: 1.75rem !important;
+  }
+}
+
+/* ====================
+   UTILIDADES
+   ==================== */
+
+.glass-effect {
+  background: var(--glass-bg) !important;
+  backdrop-filter: blur(20px) !important;
+  border: 1px solid var(--glass-border) !important;
+}
+
+.hover-lift:hover {
+  transform: translateY(-8px) !important;
+  box-shadow: var(--shadow-heavy) !important;
+}
+
+.gradient-bg {
+  background: var(--primary-gradient) !important;
+}
+
+.text-gradient {
+  background: var(--primary-gradient);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Override para eliminar conflictos */
+.MuiContainer-root {
+  overflow: visible !important;
+}
+
+.MuiBox-root {
+  backdrop-filter: none;
+  filter: none;
+}

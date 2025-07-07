@@ -50,7 +50,8 @@ export const register = async (req: Request, res: Response): Promise<void> => {
         nombre: user.nombre,
         email: user.email,
         telefono: user.telefono,
-        rol: user.rol
+        rol: user.rol,
+        profileImage: user.profileImage
       }
     });
   } catch (error) {
@@ -98,7 +99,8 @@ export const login = async (req: Request, res: Response): Promise<void> => {
         nombre: user.nombre,
         email: user.email,
         telefono: user.telefono,
-        rol: user.rol
+        rol: user.rol,
+        profileImage: user.profileImage
       }
     });
   } catch (error) {
@@ -130,7 +132,8 @@ export const verifyToken = async (req: Request, res: Response): Promise<void> =>
         nombre: user.nombre,
         email: user.email,
         telefono: user.telefono,
-        rol: user.rol
+        rol: user.rol,
+        profileImage: user.profileImage
       }
     });
   } catch (error) {

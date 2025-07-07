@@ -60,20 +60,32 @@ export const updateUserProfile = async (req: AuthRequest, res: Response): Promis
       return;
     }
 
-    // Verificar si el email ya existe (si se está cambiando)
-    if (email && email !== currentUser.email) {
-      const existingUser = await User.findOne({ email, _id: { $ne: userId } });
+    // Verificar si el email ya existe (solo si realmente está cambiando)
+    if (email && email.trim() !== currentUser.email.trim()) {
+      const existingUser = await User.findOne({ 
+        email: email.trim().toLowerCase(), 
+        _id: { $ne: userId } 
+      });
       if (existingUser) {
         res.status(400).json({ message: 'Ya existe un usuario con ese email' });
         return;
       }
     }
 
-    // Preparar datos para actualizar
+    // Preparar datos para actualizar (solo incluir campos que realmente cambiaron)
     const updateData: any = {};
-    if (nombre) updateData.nombre = nombre;
-    if (email) updateData.email = email;
-    if (telefono) updateData.telefono = telefono;
+    
+    if (nombre && nombre.trim() !== currentUser.nombre.trim()) {
+      updateData.nombre = nombre.trim();
+    }
+    
+    if (email && email.trim().toLowerCase() !== currentUser.email.trim().toLowerCase()) {
+      updateData.email = email.trim().toLowerCase();
+    }
+    
+    if (telefono && telefono.trim() !== currentUser.telefono.trim()) {
+      updateData.telefono = telefono.trim();
+    }
 
     // Manejar imagen de perfil si se subió una nueva
     if (req.file) {
@@ -89,6 +101,7 @@ export const updateUserProfile = async (req: AuthRequest, res: Response): Promis
       updateData.profileImage = `/uploads/profiles/${req.file.filename}`;
     }
 
+    // Solo actualizar si hay cambios
     const user = await User.findByIdAndUpdate(
       userId,
       updateData,
