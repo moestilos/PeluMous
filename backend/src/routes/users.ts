@@ -1,5 +1,6 @@
 import express from 'express';
 import { authMiddleware, adminMiddleware } from '../middleware/auth';
+import upload from '../middleware/upload';
 import {
   getPeluqueros,
   getUsers,
@@ -28,7 +29,7 @@ router.get('/profile', getUserProfile);
 // @route   PUT /api/users/profile
 // @desc    Actualizar perfil del usuario
 // @access  Private
-router.put('/profile', updateUserProfile);
+router.put('/profile', upload.single('profileImage'), updateUserProfile);
 
 // Rutas de administración (requieren permisos de admin)
 router.use(adminMiddleware);

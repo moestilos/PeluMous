@@ -1,6 +1,8 @@
 import { Request, Response } from 'express';
 import bcrypt from 'bcryptjs';
 import User from '../models/User';
+import path from 'path';
+import fs from 'fs';
 
 interface AuthRequest extends Request {
   user?: any;
@@ -48,11 +50,48 @@ export const getUserProfile = async (req: AuthRequest, res: Response): Promise<v
 
 export const updateUserProfile = async (req: AuthRequest, res: Response): Promise<void> => {
   try {
-    const { nombre, telefono } = req.body;
+    const { nombre, email, telefono } = req.body;
+    const userId = req.user._id;
+
+    // Obtener usuario actual
+    const currentUser = await User.findById(userId);
+    if (!currentUser) {
+      res.status(404).json({ message: 'Usuario no encontrado' });
+      return;
+    }
+
+    // Verificar si el email ya existe (si se está cambiando)
+    if (email && email !== currentUser.email) {
+      const existingUser = await User.findOne({ email, _id: { $ne: userId } });
+      if (existingUser) {
+        res.status(400).json({ message: 'Ya existe un usuario con ese email' });
+        return;
+      }
+    }
+
+    // Preparar datos para actualizar
+    const updateData: any = {};
+    if (nombre) updateData.nombre = nombre;
+    if (email) updateData.email = email;
+    if (telefono) updateData.telefono = telefono;
+
+    // Manejar imagen de perfil si se subió una nueva
+    if (req.file) {
+      // Eliminar imagen anterior si existe
+      if (currentUser.profileImage) {
+        const oldImagePath = path.join(__dirname, '../../uploads/profiles', path.basename(currentUser.profileImage));
+        if (fs.existsSync(oldImagePath)) {
+          fs.unlinkSync(oldImagePath);
+        }
+      }
+      
+      // Guardar nueva imagen
+      updateData.profileImage = `/uploads/profiles/${req.file.filename}`;
+    }
 
     const user = await User.findByIdAndUpdate(
-      req.user._id,
-      { nombre, telefono },
+      userId,
+      updateData,
       { new: true }
     ).select('-password');
 

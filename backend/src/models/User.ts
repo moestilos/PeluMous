@@ -7,6 +7,7 @@ export interface IUser extends Document {
   telefono: string;
   rol: 'cliente' | 'admin' | 'peluquero';
   fechaRegistro: Date;
+  profileImage?: string;
 }
 
 const UserSchema: Schema = new Schema({
@@ -38,6 +39,10 @@ const UserSchema: Schema = new Schema({
   fechaRegistro: {
     type: Date,
     default: Date.now
+  },
+  profileImage: {
+    type: String,
+    default: null
   }
 });
 

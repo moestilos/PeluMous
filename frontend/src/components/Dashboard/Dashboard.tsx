@@ -27,6 +27,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import NewAppointment from '../Appointments/NewAppointment';
 import MyAppointments from '../Appointments/MyAppointments';
+import UserProfile from '../Profile/UserProfile';
 
 const Dashboard: React.FC = () => {
   const [searchParams] = useSearchParams();
@@ -342,6 +343,8 @@ const Dashboard: React.FC = () => {
         return <NewAppointment />;
       case 'myAppointments':
         return <MyAppointments />;
+      case 'profile':
+        return <UserProfile />;
       case 'overview':
       default:
         return renderOverview();

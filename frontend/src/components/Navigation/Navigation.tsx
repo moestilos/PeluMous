@@ -194,8 +194,10 @@ const Navigation: React.FC = () => {
             width: 48, 
             height: 48,
             background: 'rgba(255,255,255,0.2)'
-          }}>
-            {user?.nombre.charAt(0)}
+          }}
+          src={user?.profileImage ? `http://localhost:5000${user.profileImage}` : undefined}
+          >
+            {!user?.profileImage && user?.nombre.charAt(0)}
           </Avatar>
           <Box>
             <Typography variant="h6" sx={{ fontWeight: 600 }}>
@@ -444,8 +446,10 @@ const Navigation: React.FC = () => {
                   width: 32, 
                   height: 32,
                   background: `linear-gradient(135deg, ${getRoleColor(user.rol)}, ${alpha(getRoleColor(user.rol), 0.7)})`
-                }}>
-                  {user.nombre.charAt(0)}
+                }}
+                src={user.profileImage ? `http://localhost:5000${user.profileImage}` : undefined}
+                >
+                  {!user.profileImage && user.nombre.charAt(0)}
                 </Avatar>
                 {!isMobile && (
                   <Box>
@@ -478,7 +482,7 @@ const Navigation: React.FC = () => {
           }
         }}
       >
-        <MenuItem onClick={() => navigate('/dashboard')} sx={{ borderRadius: 2, mx: 1 }}>
+        <MenuItem onClick={() => { navigate('/dashboard?section=profile'); handleMenuClose(); }} sx={{ borderRadius: 2, mx: 1 }}>
           <ListItemIcon>
             <Person fontSize="small" />
           </ListItemIcon>
