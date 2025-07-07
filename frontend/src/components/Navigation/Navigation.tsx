@@ -291,32 +291,85 @@ const Navigation: React.FC = () => {
         position="sticky" 
         elevation={0}
         sx={{ 
-          backgroundColor: '#ffffff',
-          borderBottom: '1px solid #e5e5e5',
-          boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)'
+          background: 'linear-gradient(135deg, rgba(26, 26, 46, 0.95), rgba(233, 69, 96, 0.95))',
+          backdropFilter: 'blur(20px)',
+          border: 'none',
+          boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)'
         }}
       >
-        <Toolbar>
-          <Typography 
-            variant="h6" 
-            sx={{ 
-              flexGrow: 1, 
-              fontWeight: 700,
-              color: '#000000'
-            }}
-          >
-            Moestilos
-          </Typography>
-          <Button 
-            variant="contained" 
-            onClick={() => navigate('/auth')}
-            sx={{ 
-              backgroundColor: '#000000',
-              color: '#ffffff'
-            }}
-          >
-            Iniciar Sesión
-          </Button>
+        <Toolbar sx={{ py: 1 }}>
+          <Stack direction="row" spacing={2} alignItems="center" sx={{ flexGrow: 1 }}>
+            <Avatar sx={{ 
+              width: 40, 
+              height: 40,
+              background: 'rgba(255,255,255,0.2)',
+              fontSize: '1.5rem'
+            }}>
+              ✂️
+            </Avatar>
+            <Typography 
+              variant="h5" 
+              sx={{ 
+                fontWeight: 800,
+                color: '#ffffff',
+                textShadow: '2px 2px 4px rgba(0,0,0,0.3)'
+              }}
+            >
+              Moestilos
+            </Typography>
+          </Stack>
+          
+          <Stack direction="row" spacing={2} alignItems="center">
+            <Button 
+              variant="outlined" 
+              onClick={() => {
+                const servicesSection = document.getElementById('services-section');
+                if (servicesSection) {
+                  servicesSection.scrollIntoView({ behavior: 'smooth' });
+                } else {
+                  // Si no existe la sección, navegar a la página principal
+                  navigate('/');
+                  setTimeout(() => {
+                    const section = document.getElementById('services-section');
+                    section?.scrollIntoView({ behavior: 'smooth' });
+                  }, 100);
+                }
+              }}
+              sx={{ 
+                borderColor: '#ffffff',
+                color: '#ffffff',
+                fontWeight: 600,
+                borderWidth: 2,
+                '&:hover': {
+                  borderColor: '#ffffff',
+                  backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                  borderWidth: 2
+                }
+              }}
+            >
+              Ver Servicios
+            </Button>
+            <Button 
+              variant="contained" 
+              onClick={() => navigate('/auth')}
+              sx={{ 
+                backgroundColor: '#ffffff',
+                color: '#1a1a2e',
+                fontWeight: 700,
+                px: 3,
+                py: 1.5,
+                borderRadius: 2,
+                boxShadow: '0 4px 15px rgba(0, 0, 0, 0.2)',
+                '&:hover': {
+                  backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                  transform: 'translateY(-1px)',
+                  boxShadow: '0 6px 20px rgba(0, 0, 0, 0.3)'
+                }
+              }}
+            >
+              Iniciar Sesión
+            </Button>
+          </Stack>
         </Toolbar>
       </AppBar>
     );
