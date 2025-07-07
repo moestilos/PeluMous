@@ -1,233 +1,191 @@
-# Sistema de Gestión para Peluquería
+# 💇‍♀️ PeluMous - Sistema de Gestión de Peluquería
 
-Una aplicación web completa para gestionar citas, usuarios y servicios de una peluquería.
+Un sistema completo y profesional de gestión para peluquerías con interfaz web moderna, desarrollado con tecnologías de vanguardia.
 
-## Características
+## ✨ Características Principales
 
-- **Sistema de autenticación** con roles (cliente, peluquero, admin)
-- **Gestión de citas** con disponibilidad en tiempo real
-- **Catálogo de servicios** con precios y duración
-- **Panel de administración** para gestionar usuarios y servicios
-- **Interfaz moderna** con Material-UI
-- **API RESTful** con Node.js y Express
-- **Base de datos** MongoDB
+- 🎨 **Interfaz Moderna**: Diseño elegante con modo oscuro y animaciones fluidas
+- 📅 **Sistema de Reservas**: Gestión completa de citas y servicios
+- 👥 **Gestión de Usuarios**: Clientes, peluqueros y administradores
+- 🔐 **Autenticación Segura**: Sistema de login con JWT tokens
+- 📱 **Responsive Design**: Adaptado para todos los dispositivos
+- ⚡ **Tiempo Real**: Actualizaciones instantáneas del estado de las citas
+- 🎭 **Animaciones**: Transiciones suaves con Framer Motion
 
-## Tecnologías
-
-### Backend
-- Node.js + Express + TypeScript
-- MongoDB + Mongoose
-- JWT para autenticación
-- bcryptjs para encriptación
-- CORS habilitado
+## 🛠️ Tecnologías Utilizadas
 
 ### Frontend
-- React + TypeScript
-- Material-UI para la interfaz
-- React Router para navegación
-- Axios para comunicación con API
-- Context API para gestión de estado
+- **React 18** con TypeScript
+- **Material-UI (MUI)** para componentes
+- **Framer Motion** para animaciones
+- **Axios** para peticiones HTTP
+- **React Context** para gestión de estado
 
-## Instalación y Configuración
+### Backend
+- **Node.js** con Express
+- **MongoDB** con Mongoose
+- **JWT** para autenticación
+- **bcryptjs** para encriptación
+- **CORS** habilitado
 
-### Prerrequisitos
-- Node.js (versión 16 o superior)
-- MongoDB (local o Atlas)
-- Git
+### DevOps
+- **Docker** para containerización
+- **Docker Compose** para orquestación
+- **Git** para control de versiones
 
-### Instalación de MongoDB (Requerido)
+## 🚀 Instalación y Configuración
 
-**Opción 1: MongoDB Local (Recomendado para desarrollo)**
+### Prerequisitos
+- Node.js 16+
+- MongoDB 5+
+- Docker (opcional)
 
-1. Descargar MongoDB Community Server desde: https://www.mongodb.com/try/download/community
-2. Instalar siguiendo las instrucciones del instalador
-3. Iniciar el servicio MongoDB:
-   - Windows: El servicio se inicia automáticamente después de la instalación
-   - macOS: `brew services start mongodb/brew/mongodb-community`
-   - Linux: `sudo systemctl start mongod`
+### Instalación Manual
 
-**Opción 2: MongoDB Atlas (Nube)**
+1. **Clonar el repositorio**
+```bash
+git clone git@github.com:moestilos/PeluMous.git
+cd PeluMous
+```
 
-1. Crear cuenta gratuita en https://www.mongodb.com/atlas
-2. Crear un cluster gratuito
-3. Obtener la cadena de conexión
-4. Actualizar `MONGODB_URI` en el archivo `.env`
-
-### Configuración del Backend
-
-1. Navegar al directorio del backend:
+2. **Configurar Backend**
 ```bash
 cd backend
-```
-
-2. Instalar dependencias:
-```bash
 npm install
-```
-
-3. Configurar variables de entorno:
-- Editar el archivo `.env` con tus configuraciones:
-```
-PORT=5000
-MONGODB_URI=mongodb://localhost:27017/peluqueria
-JWT_SECRET=tu_jwt_secret_muy_seguro_aqui_12345
-NODE_ENV=development
-```
-
-4. Compilar TypeScript:
-```bash
-npm run build
-```
-
-5. Poblar la base de datos con datos de ejemplo:
-```bash
-npm run seed
-```
-
-6. Iniciar el servidor de desarrollo:
-```bash
+cp .env.example .env
+# Configurar variables de entorno en .env
 npm run dev
 ```
 
-El backend estará corriendo en `http://localhost:5000`
-
-### Configuración del Frontend
-
-1. Navegar al directorio del frontend:
+3. **Configurar Frontend**
 ```bash
 cd frontend
-```
-
-2. Instalar dependencias:
-```bash
 npm install
-```
-
-3. Iniciar el servidor de desarrollo:
-```bash
 npm start
 ```
 
-El frontend estará corriendo en `http://localhost:3000`
+### Instalación con Docker
 
-## Usuarios de Prueba
+```bash
+docker-compose up -d
+```
 
-Después de ejecutar `npm run seed` en el backend, tendrás estos usuarios disponibles:
-
-- **Admin**: admin@peluqueria.com / admin123
-- **Peluquero 1**: maria@peluqueria.com / maria123
-- **Peluquero 2**: juan@peluqueria.com / juan123
-- **Cliente**: cliente@ejemplo.com / cliente123
-
-## Funcionalidades por Rol
-
-### Cliente
-- Registrarse e iniciar sesión
-- Ver servicios disponibles
-- Reservar citas con peluqueros
-- Ver y gestionar sus citas
-- Cancelar citas
-
-### Peluquero
-- Ver citas asignadas
-- Cambiar estado de citas (confirmada, completada, etc.)
-- Ver información de clientes
-
-### Administrador
-- Gestionar todos los usuarios
-- Gestionar servicios (crear, editar, desactivar)
-- Ver todas las citas del sistema
-- Acceso completo al sistema
-
-## API Endpoints
-
-### Autenticación
-- `POST /api/auth/register` - Registrar usuario
-- `POST /api/auth/login` - Iniciar sesión
-
-### Citas
-- `GET /api/appointments` - Obtener citas (filtradas por rol)
-- `POST /api/appointments` - Crear nueva cita
-- `PUT /api/appointments/:id/status` - Actualizar estado de cita
-- `DELETE /api/appointments/:id` - Eliminar cita
-
-### Servicios
-- `GET /api/services` - Obtener servicios activos
-- `POST /api/services` - Crear servicio (solo admin)
-- `PUT /api/services/:id` - Actualizar servicio (solo admin)
-- `DELETE /api/services/:id` - Desactivar servicio (solo admin)
-
-### Usuarios
-- `GET /api/users/peluqueros` - Obtener lista de peluqueros
-- `GET /api/users` - Obtener todos los usuarios (solo admin)
-
-## Estructura del Proyecto
+## 📂 Estructura del Proyecto
 
 ```
-peluqueria/
-├── backend/
+PeluMous/
+├── frontend/                 # Aplicación React
 │   ├── src/
-│   │   ├── controllers/
-│   │   ├── middleware/
-│   │   ├── models/
-│   │   ├── routes/
-│   │   └── server.ts
-│   ├── .env
-│   ├── package.json
-│   ├── tsconfig.json
-│   └── seed.ts
-├── frontend/
-│   ├── src/
-│   │   ├── components/
-│   │   ├── contexts/
-│   │   ├── App.tsx
-│   │   └── index.tsx
+│   │   ├── components/      # Componentes reutilizables
+│   │   ├── contexts/        # Context providers
+│   │   └── ...
 │   └── package.json
+├── backend/                  # API Node.js/Express
+│   ├── src/
+│   │   ├── controllers/     # Controladores
+│   │   ├── models/          # Modelos MongoDB
+│   │   ├── routes/          # Rutas API
+│   │   └── middleware/      # Middlewares
+│   └── package.json
+├── docker-compose.yml       # Configuración Docker
 └── README.md
 ```
 
-## Desarrollo
+## 🎯 Funcionalidades
 
-### Scripts Disponibles
+### Para Clientes
+- ✅ Registro y login
+- ✅ Reservar citas
+- ✅ Ver historial de citas
+- ✅ Cancelar/modificar reservas
+- ✅ Perfil personal
 
-**Backend:**
-- `npm run dev` - Iniciar en modo desarrollo
-- `npm run build` - Compilar TypeScript
-- `npm start` - Iniciar servidor de producción
-- `npm run seed` - Poblar base de datos
+### Para Peluqueros
+- ✅ Ver agenda personal
+- ✅ Confirmar/rechazar citas
+- ✅ Gestionar horarios
+- ✅ Ver información de clientes
 
-**Frontend:**
-- `npm start` - Iniciar en modo desarrollo
-- `npm run build` - Compilar para producción
-- `npm test` - Ejecutar tests
+### Para Administradores
+- ✅ Panel de control completo
+- ✅ Gestión de usuarios
+- ✅ Configuración de servicios
+- ✅ Reportes y estadísticas
 
-## Contribución
+## 🔧 Variables de Entorno
+
+### Backend (.env)
+```env
+MONGODB_URI=mongodb://localhost:27017/peluqueria
+JWT_SECRET=tu_secret_key_aqui
+PORT=5000
+NODE_ENV=development
+```
+
+### Frontend
+```env
+REACT_APP_API_URL=http://localhost:5000/api
+```
+
+## 🎨 Capturas de Pantalla
+
+### Dashboard Principal
+Una interfaz moderna y elegante que muestra el resumen de citas y estadísticas importantes.
+
+### Sistema de Reservas
+Formulario intuitivo con selección de servicios, profesionales y horarios disponibles.
+
+### Panel de Administración
+Herramientas completas para gestionar usuarios, servicios y configuraciones del sistema.
+
+## 🤝 Contribuir
 
 1. Fork el proyecto
-2. Crear una rama para tu feature (`git checkout -b feature/AmazingFeature`)
+2. Crea una rama para tu feature (`git checkout -b feature/AmazingFeature`)
 3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
 4. Push a la rama (`git push origin feature/AmazingFeature`)
-5. Abrir un Pull Request
+5. Abre un Pull Request
 
-## Próximas Funcionalidades
+## 🐛 Reportar Bugs
 
-- [ ] Sistema de notificaciones por email
-- [ ] Calendario visual para reservas
-- [ ] Sistema de comentarios y valoraciones
-- [ ] Reportes y estadísticas
-- [ ] Integración con sistemas de pago
-- [ ] App móvil con React Native
+Si encuentras algún bug, por favor abre un issue en GitHub con:
+- Descripción del problema
+- Pasos para reproducirlo
+- Capturas de pantalla (si aplica)
+- Información del navegador/sistema
 
-## Soporte
+## 📋 Roadmap
 
-Para reportar bugs o solicitar nuevas funcionalidades, por favor abre un issue en el repositorio.
+- [ ] Notificaciones push
+- [ ] Integración con WhatsApp
+- [ ] Sistema de pagos online
+- [ ] App móvil nativa
+- [ ] Reportes avanzados con gráficos
 
-### Verificar MongoDB
+## 📄 Licencia
 
-Para verificar que MongoDB esté corriendo:
-```bash
-# Conectar a MongoDB local
-mongosh
-# O usar mongo si mongosh no está disponible
-mongo
-```
+Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) para más detalles.
+
+## 👨‍💻 Autor
+
+**MoeEstilos** - [@moestilos](https://github.com/moestilos)
+- Email: gmateosoficial@gmail.com
+
+## 🙏 Agradecimientos
+
+- Material-UI por los componentes elegantes
+- Framer Motion por las animaciones fluidas
+- La comunidad de React por el ecosistema increíble
+- MongoDB por la base de datos flexible
+
+## 📞 Soporte
+
+Si necesitas ayuda o tienes preguntas:
+- 📧 Email: gmateosoficial@gmail.com
+- 🐛 Issues: [GitHub Issues](https://github.com/moestilos/PeluMous/issues)
+
+---
+
+⭐ ¡Si te gusta este proyecto, dale una estrella en GitHub!
+
+**Desarrollado con ❤️ por MoeEstilos**
