@@ -182,7 +182,7 @@ const Home: React.FC = () => {
   return (
     <Box sx={{ 
       minHeight: '100vh',
-      background: 'transparent',
+      background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%)',
       position: 'relative'
     }}>
       {/* Hero Section */}
@@ -197,34 +197,36 @@ const Home: React.FC = () => {
               <motion.div variants={itemVariants}>
                 <Typography
                   variant="h1"
-                  className="elegant-title"
                   sx={{
-                    fontSize: { xs: '2.5rem', md: '4rem', lg: '5rem' },
-                    fontWeight: 700,
-                    lineHeight: 1.1,
+                    fontSize: { xs: '2.5rem', md: '3.5rem', lg: '4.5rem' },
+                    fontWeight: 600,
+                    lineHeight: 1.2,
                     mb: 3,
+                    color: '#ffffff',
+                    fontFamily: '"Teko", "Arial", sans-serif'
                   }}
                 >
                   Salón de Belleza
                   <br />
-                  <span className="luxury-accent">Experto</span>
+                  <span style={{ color: '#3b82f6', fontWeight: 500 }}>Profesional</span>
                 </Typography>
               </motion.div>
               
               <motion.div variants={itemVariants}>
                 <Typography
                   variant="h5"
-                  className="refined-text"
                   sx={{
                     mb: 4,
                     fontWeight: 400,
                     lineHeight: 1.6,
                     maxWidth: '500px',
-                    fontSize: { xs: '1.125rem', md: '1.25rem' }
+                    fontSize: { xs: '1.125rem', md: '1.25rem' },
+                    color: '#e2e8f0',
+                    fontFamily: '"Teko", "Arial", sans-serif'
                   }}
                 >
-                  Transformamos tu estilo con <span className="luxury-accent">técnicas profesionales de vanguardia</span> 
-                  y una experiencia de lujo personalizada.
+                  Transformamos tu estilo con <span style={{ color: '#3b82f6', fontWeight: 500 }}>técnicas profesionales</span> 
+                  y una experiencia personalizada de calidad.
                 </Typography>
               </motion.div>
 
@@ -264,11 +266,11 @@ const Home: React.FC = () => {
                       textTransform: 'none',
                       fontSize: '1.1rem',
                       fontWeight: 600,
-                      border: '2px solid #e2e8f0',
-                      color: '#475569',
+                      border: '2px solid #475569',
+                      color: '#e2e8f0',
                       '&:hover': {
-                        border: '2px solid #0f172a',
-                        background: 'rgba(15, 23, 42, 0.05)',
+                        border: '2px solid #3b82f6',
+                        background: 'rgba(59, 130, 246, 0.1)',
                         transform: 'translateY(-2px)',
                       },
                       transition: 'all 0.3s ease'
@@ -323,7 +325,7 @@ const Home: React.FC = () => {
       </Container>
 
       {/* Features Section */}
-      <Box sx={{ py: { xs: 8, md: 12 }, bgcolor: 'rgba(255, 255, 255, 0.4)', backdropFilter: 'blur(10px)' }}>
+      <Box sx={{ py: { xs: 8, md: 12 }, bgcolor: 'rgba(0, 0, 0, 0.3)', backdropFilter: 'blur(10px)' }}>
         <Container maxWidth="xl">
           <motion.div
             variants={containerVariants}
@@ -334,26 +336,28 @@ const Home: React.FC = () => {
             <Box sx={{ textAlign: 'center', mb: 8 }}>
               <Typography
                 variant="h2"
-                className="elegant-subtitle"
                 sx={{
-                  fontSize: { xs: '2rem', md: '3rem' },
-                  fontWeight: 700,
+                  fontSize: { xs: '1.8rem', md: '2.5rem' },
+                  fontWeight: 500,
                   mb: 3,
+                  color: '#ffffff',
+                  fontFamily: '"Teko", "Arial", sans-serif'
                 }}
               >
-                ¿Por qué elegir nuestro <span className="text-shimmer">salón</span>?
+                ¿Por qué elegir nuestro <span style={{ color: '#3b82f6' }}>salón</span>?
               </Typography>
               <Typography
                 variant="h6"
-                className="refined-text"
                 sx={{
                   maxWidth: '600px',
                   mx: 'auto',
                   lineHeight: 1.6,
-                  fontSize: '1.125rem'
+                  fontSize: '1.125rem',
+                  color: '#cbd5e1',
+                  fontFamily: '"Teko", "Arial", sans-serif'
                 }}
               >
-                Ofrecemos una experiencia única combinando <span className="luxury-accent">técnicas avanzadas</span>, 
+                Ofrecemos una experiencia única combinando <span style={{ color: '#3b82f6', fontWeight: 500 }}>técnicas avanzadas</span>, 
                 productos de primera calidad y un servicio personalizado excepcional.
               </Typography>
             </Box>
@@ -369,7 +373,8 @@ const Home: React.FC = () => {
                         textAlign: 'center',
                         p: 3,
                         borderRadius: 3,
-                        border: '1px solid rgba(255, 255, 255, 0.2)',
+                        border: '1px solid rgba(255, 255, 255, 0.1)',
+                        background: 'rgba(0, 0, 0, 0.2)',
                         transition: 'all 0.3s ease',
                         '&:hover': {
                           transform: 'translateY(-8px)',
@@ -383,9 +388,10 @@ const Home: React.FC = () => {
                       <Typography
                         variant="h6"
                         sx={{
-                          fontWeight: 600,
+                          fontWeight: 500,
                           mb: 2,
-                          color: '#0f172a'
+                          color: '#ffffff',
+                          fontFamily: '"Teko", "Arial", sans-serif'
                         }}
                       >
                         {feature.title}
@@ -393,7 +399,7 @@ const Home: React.FC = () => {
                       <Typography
                         variant="body2"
                         sx={{
-                          color: '#64748b',
+                          color: '#cbd5e1',
                           lineHeight: 1.6
                         }}
                       >
@@ -417,24 +423,27 @@ const Home: React.FC = () => {
             whileInView="visible"
             viewport={{ once: true }}
           >
-            <Box sx={{ textAlign: 'center', mb: 8 }}>                <Typography
+            <Box sx={{ textAlign: 'center', mb: 8 }}>
+                <Typography
                   variant="h2"
-                  className="elegant-subtitle"
                   sx={{
-                    fontSize: { xs: '2rem', md: '3rem' },
-                    fontWeight: 700,
+                    fontSize: { xs: '1.8rem', md: '2.5rem' },
+                    fontWeight: 500,
                     mb: 3,
+                    color: '#ffffff',
+                    fontFamily: '"Teko", "Arial", sans-serif'
                   }}
                 >
-                  Nuestros <span className="text-glow">Servicios</span>
+                  Nuestros <span style={{ color: '#3b82f6' }}>Servicios</span>
                 </Typography>
               <Typography
                 variant="h6"
                 sx={{
-                  color: '#64748b',
+                  color: '#cbd5e1',
                   maxWidth: '600px',
                   mx: 'auto',
-                  lineHeight: 1.6
+                  lineHeight: 1.6,
+                  fontFamily: '"Teko", "Arial", sans-serif'
                 }}
               >
                 Descubre nuestra amplia gama de servicios profesionales 
@@ -453,6 +462,8 @@ const Home: React.FC = () => {
                         borderRadius: 3,
                         overflow: 'hidden',
                         position: 'relative',
+                        background: 'rgba(0, 0, 0, 0.3)',
+                        border: '1px solid rgba(255, 255, 255, 0.1)',
                         transition: 'all 0.3s ease',
                         '&:hover': {
                           transform: 'translateY(-8px)',
@@ -467,8 +478,9 @@ const Home: React.FC = () => {
                             <Typography
                               variant="h6"
                               sx={{
-                                fontWeight: 600,
-                                color: '#0f172a'
+                                fontWeight: 500,
+                                color: '#ffffff',
+                                fontFamily: '"Teko", "Arial", sans-serif'
                               }}
                             >
                               {service.nombre}
@@ -485,7 +497,7 @@ const Home: React.FC = () => {
                         <Typography
                           variant="body2"
                           sx={{
-                            color: '#64748b',
+                            color: '#cbd5e1',
                             mb: 3,
                             lineHeight: 1.6
                           }}
@@ -504,10 +516,10 @@ const Home: React.FC = () => {
                             ${service.precio}
                           </Typography>
                           <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-                            <AccessTime sx={{ fontSize: 16, color: '#64748b' }} />
+                            <AccessTime sx={{ fontSize: 16, color: '#cbd5e1' }} />
                             <Typography
                               variant="body2"
-                              sx={{ color: '#64748b' }}
+                              sx={{ color: '#cbd5e1' }}
                             >
                               {service.duracion} min
                             </Typography>
@@ -523,9 +535,9 @@ const Home: React.FC = () => {
                             borderRadius: 2,
                             textTransform: 'none',
                             fontWeight: 600,
-                            background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)',
+                            background: 'linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)',
                             '&:hover': {
-                              background: 'linear-gradient(135deg, #1e293b 0%, #334155 100%)',
+                              background: 'linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%)',
                             }
                           }}
                         >
@@ -542,7 +554,7 @@ const Home: React.FC = () => {
       </Box>
 
       {/* Testimonials Section */}
-      <Box sx={{ py: { xs: 8, md: 12 }, bgcolor: 'rgba(255, 255, 255, 0.3)', backdropFilter: 'blur(8px)' }}>
+      <Box sx={{ py: { xs: 8, md: 12 }, bgcolor: 'rgba(0, 0, 0, 0.2)', backdropFilter: 'blur(8px)' }}>
         <Container maxWidth="xl">
           <motion.div
             variants={containerVariants}
@@ -554,10 +566,11 @@ const Home: React.FC = () => {
               <Typography
                 variant="h2"
                 sx={{
-                  fontSize: { xs: '2rem', md: '3rem' },
-                  fontWeight: 700,
+                  fontSize: { xs: '1.8rem', md: '2.5rem' },
+                  fontWeight: 500,
                   mb: 3,
-                  color: '#0f172a'
+                  color: '#ffffff',
+                  fontFamily: '"Teko", "Arial", sans-serif'
                 }}
               >
                 Lo que dicen nuestros clientes
@@ -565,10 +578,11 @@ const Home: React.FC = () => {
               <Typography
                 variant="h6"
                 sx={{
-                  color: '#64748b',
+                  color: '#cbd5e1',
                   maxWidth: '600px',
                   mx: 'auto',
-                  lineHeight: 1.6
+                  lineHeight: 1.6,
+                  fontFamily: '"Teko", "Arial", sans-serif'
                 }}
               >
                 La satisfacción de nuestros clientes es nuestra mayor recompensa.
@@ -586,6 +600,8 @@ const Home: React.FC = () => {
                         p: 3,
                         borderRadius: 3,
                         position: 'relative',
+                        background: 'rgba(0, 0, 0, 0.3)',
+                        border: '1px solid rgba(255, 255, 255, 0.1)',
                         transition: 'all 0.3s ease',
                         '&:hover': {
                           transform: 'translateY(-8px)',
@@ -608,16 +624,17 @@ const Home: React.FC = () => {
                           <Typography
                             variant="h6"
                             sx={{
-                              fontWeight: 600,
-                              color: '#0f172a',
-                              mb: 0.5
+                              fontWeight: 500,
+                              color: '#ffffff',
+                              mb: 0.5,
+                              fontFamily: '"Teko", "Arial", sans-serif'
                             }}
                           >
                             {testimonial.name}
                           </Typography>
                           <Typography
                             variant="body2"
-                            sx={{ color: '#64748b' }}
+                            sx={{ color: '#cbd5e1' }}
                           >
                             {testimonial.service}
                           </Typography>
@@ -633,7 +650,7 @@ const Home: React.FC = () => {
                       <Typography
                         variant="body2"
                         sx={{
-                          color: '#64748b',
+                          color: '#cbd5e1',
                           fontStyle: 'italic',
                           lineHeight: 1.6
                         }}
@@ -662,10 +679,11 @@ const Home: React.FC = () => {
               <Typography
                 variant="h2"
                 sx={{
-                  fontSize: { xs: '2rem', md: '3rem' },
-                  fontWeight: 700,
+                  fontSize: { xs: '1.8rem', md: '2.5rem' },
+                  fontWeight: 500,
                   mb: 3,
-                  color: '#0f172a'
+                  color: '#ffffff',
+                  fontFamily: '"Teko", "Arial", sans-serif'
                 }}
               >
                 Contáctanos
@@ -673,10 +691,11 @@ const Home: React.FC = () => {
               <Typography
                 variant="h6"
                 sx={{
-                  color: '#64748b',
+                  color: '#cbd5e1',
                   maxWidth: '600px',
                   mx: 'auto',
-                  lineHeight: 1.6
+                  lineHeight: 1.6,
+                  fontFamily: '"Teko", "Arial", sans-serif'
                 }}
               >
                 Estamos aquí para ayudarte. Contáctanos para más información o para reservar tu cita.
@@ -685,13 +704,14 @@ const Home: React.FC = () => {
 
             <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 4, justifyContent: 'center' }}>
               <Box sx={{ flex: { xs: '1 1 100%', sm: '1 1 calc(33.333% - 21.333px)' } }}>
-                <motion.div variants={itemVariants}>
-                  <Card
+                <motion.div variants={itemVariants}>                    <Card
                     className="glass-card"
                     sx={{
                       textAlign: 'center',
                       p: 3,
                       borderRadius: 3,
+                      background: 'rgba(0, 0, 0, 0.3)',
+                      border: '1px solid rgba(255, 255, 255, 0.1)',
                       transition: 'all 0.3s ease',
                       '&:hover': {
                         transform: 'translateY(-8px)',
@@ -700,10 +720,10 @@ const Home: React.FC = () => {
                     }}
                   >
                     <Phone sx={{ fontSize: 40, color: '#b45309', mb: 2 }} />
-                    <Typography variant="h6" sx={{ fontWeight: 600, mb: 1, color: '#0f172a' }}>
+                    <Typography variant="h6" sx={{ fontWeight: 500, mb: 1, color: '#ffffff', fontFamily: '"Teko", "Arial", sans-serif' }}>
                       Teléfono
                     </Typography>
-                    <Typography variant="body2" sx={{ color: '#64748b' }}>
+                    <Typography variant="body2" sx={{ color: '#cbd5e1' }}>
                       +34 123 456 789
                     </Typography>
                   </Card>
@@ -711,13 +731,14 @@ const Home: React.FC = () => {
               </Box>
 
               <Box sx={{ flex: { xs: '1 1 100%', sm: '1 1 calc(33.333% - 21.333px)' } }}>
-                <motion.div variants={itemVariants}>
-                  <Card
+                <motion.div variants={itemVariants}>                    <Card
                     className="glass-card"
                     sx={{
                       textAlign: 'center',
                       p: 3,
                       borderRadius: 3,
+                      background: 'rgba(0, 0, 0, 0.3)',
+                      border: '1px solid rgba(255, 255, 255, 0.1)',
                       transition: 'all 0.3s ease',
                       '&:hover': {
                         transform: 'translateY(-8px)',
@@ -726,10 +747,10 @@ const Home: React.FC = () => {
                     }}
                   >
                     <Email sx={{ fontSize: 40, color: '#b45309', mb: 2 }} />
-                    <Typography variant="h6" sx={{ fontWeight: 600, mb: 1, color: '#0f172a' }}>
+                    <Typography variant="h6" sx={{ fontWeight: 500, mb: 1, color: '#ffffff', fontFamily: '"Teko", "Arial", sans-serif' }}>
                       Email
                     </Typography>
-                    <Typography variant="body2" sx={{ color: '#64748b' }}>
+                    <Typography variant="body2" sx={{ color: '#cbd5e1' }}>
                       info@salonbelleza.com
                     </Typography>
                   </Card>
@@ -737,13 +758,14 @@ const Home: React.FC = () => {
               </Box>
 
               <Box sx={{ flex: { xs: '1 1 100%', sm: '1 1 calc(33.333% - 21.333px)' } }}>
-                <motion.div variants={itemVariants}>
-                  <Card
+                <motion.div variants={itemVariants}>                    <Card
                     className="glass-card"
                     sx={{
                       textAlign: 'center',
                       p: 3,
                       borderRadius: 3,
+                      background: 'rgba(0, 0, 0, 0.3)',
+                      border: '1px solid rgba(255, 255, 255, 0.1)',
                       transition: 'all 0.3s ease',
                       '&:hover': {
                         transform: 'translateY(-8px)',
@@ -752,10 +774,10 @@ const Home: React.FC = () => {
                     }}
                   >
                     <LocationOn sx={{ fontSize: 40, color: '#b45309', mb: 2 }} />
-                    <Typography variant="h6" sx={{ fontWeight: 600, mb: 1, color: '#0f172a' }}>
+                    <Typography variant="h6" sx={{ fontWeight: 500, mb: 1, color: '#ffffff', fontFamily: '"Teko", "Arial", sans-serif' }}>
                       Dirección
                     </Typography>
-                    <Typography variant="body2" sx={{ color: '#64748b' }}>
+                    <Typography variant="body2" sx={{ color: '#cbd5e1' }}>
                       Calle Principal 123, Madrid
                     </Typography>
                   </Card>
@@ -781,7 +803,7 @@ const Home: React.FC = () => {
       >
         <DialogTitle sx={{ textAlign: 'center', pb: 1 }}>
           <AutoAwesome sx={{ fontSize: 40, color: '#b45309', mb: 1 }} />
-          <Typography variant="h5" sx={{ fontWeight: 600, color: '#0f172a' }}>
+          <Typography variant="h5" sx={{ fontWeight: 500, color: '#ffffff', fontFamily: '"Teko", "Arial", sans-serif' }}>
             Iniciar Sesión Requerido
           </Typography>
         </DialogTitle>
@@ -790,7 +812,7 @@ const Home: React.FC = () => {
             Para reservar el servicio <strong>{selectedService?.nombre}</strong>, 
             necesitas iniciar sesión en tu cuenta.
           </Alert>
-          <Typography variant="body2" sx={{ color: '#64748b', textAlign: 'center' }}>
+          <Typography variant="body2" sx={{ color: '#cbd5e1', textAlign: 'center' }}>
             Si aún no tienes cuenta, podrás crear una nueva durante el proceso de inicio de sesión.
           </Typography>
         </DialogContent>
@@ -805,9 +827,9 @@ const Home: React.FC = () => {
             onClick={handleLoginRedirect}
             variant="contained"
             sx={{
-              background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)',
+              background: 'linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)',
               '&:hover': {
-                background: 'linear-gradient(135deg, #1e293b 0%, #334155 100%)',
+                background: 'linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%)',
               }
             }}
           >
