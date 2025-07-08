@@ -16,11 +16,15 @@ import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { NotificationProvider } from './components/Notifications/NotificationProvider';
 import Navigation from './components/Navigation/Navigation';
 import Footer from './components/Layout/Footer';
+import AnimatedBackground from './components/Layout/AnimatedBackground';
 import AuthForm from './components/Auth/AuthForm';
 import DashboardRouter from './components/Dashboard/DashboardRouter';
 import HomeRedirect from './components/Home/HomeRedirect';
 import AdminPanel from './components/Admin/AdminPanel';
 import HairdresserPanel from './components/Hairdresser/HairdresserPanel';
+import ReservationDebugger from './components/Debug/ReservationDebugger';
+import SimpleNewAppointment from './components/Debug/SimpleNewAppointment';
+import DebugNewAppointment from './components/Debug/DebugNewAppointment';
 
 const theme = createTheme({
   palette: {
@@ -345,20 +349,20 @@ function App() {
       <NotificationProvider>
         <AuthProvider>
           <Router>              <Box sx={{ 
+                position: 'relative',
                 display: 'flex', 
                 flexDirection: 'column', 
                 minHeight: '100vh',
-                backgroundColor: '#fafaf9',
-                backgroundImage: `
-                  linear-gradient(135deg, rgba(180, 83, 9, 0.03) 0%, rgba(15, 23, 42, 0.05) 100%),
-                  radial-gradient(circle at 20% 80%, rgba(180, 83, 9, 0.1) 0%, transparent 50%),
-                  radial-gradient(circle at 80% 20%, rgba(15, 23, 42, 0.08) 0%, transparent 50%)
-                `,
+                backgroundColor: 'transparent',
               }}>
+              <AnimatedBackground />
               <Navigation />
-              <Box sx={{ flex: 1 }}>
+              <Box sx={{ flex: 1, position: 'relative', zIndex: 1 }}>
                 <Routes>
                   <Route path="/" element={<HomeRedirect />} />
+                  <Route path="/debug" element={<ReservationDebugger />} />
+                  <Route path="/debug-appointment" element={<DebugNewAppointment />} />
+                  <Route path="/simple-appointment" element={<SimpleNewAppointment />} />
                   <Route path="/auth" element={<AuthForm />} />
                   <Route 
                     path="/dashboard" 
@@ -381,6 +385,30 @@ function App() {
                     element={
                       <ProtectedRoute>
                         <HairdresserPanel />
+                      </ProtectedRoute>
+                    } 
+                  />
+                  <Route 
+                    path="/debug/reservations" 
+                    element={
+                      <ProtectedRoute>
+                        <ReservationDebugger />
+                      </ProtectedRoute>
+                    } 
+                  />
+                  <Route 
+                    path="/debug/simple-new-appointment" 
+                    element={
+                      <ProtectedRoute>
+                        <SimpleNewAppointment />
+                      </ProtectedRoute>
+                    } 
+                  />
+                  <Route 
+                    path="/debug/new-appointment" 
+                    element={
+                      <ProtectedRoute>
+                        <DebugNewAppointment />
                       </ProtectedRoute>
                     } 
                   />

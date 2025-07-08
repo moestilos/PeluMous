@@ -4,8 +4,8 @@ import User from './src/models/User';
 
 const createTestClient = async () => {
   try {
-    await mongoose.connect('mongodb://localhost:27017/peluqueria');
-    console.log('Conectado a MongoDB');
+    await mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/peluqueria');
+    console.log('Conectado a MongoDB en', process.env.MONGODB_URI || 'mongodb://localhost:27017/peluqueria');
 
     // Crear usuario cliente de prueba
     const hashedPassword = await bcrypt.hash('123456', 10);

@@ -609,3 +609,301 @@ body {
     border-width: 3px !important;
   }
 }
+
+/* ==========================================================================
+   FONDO ANIMADO PARA SALÓN DE BELLEZA
+   ========================================================================== */
+
+.animated-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+  overflow: hidden;
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.95) 0%,
+    rgba(255, 255, 255, 0.98) 25%,
+    rgba(255, 255, 255, 0.95) 50%,
+    rgba(255, 255, 255, 0.97) 75%,
+    rgba(255, 255, 255, 0.95) 100%
+  );
+}
+
+.beauty-particles {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Partículas doradas brillantes */
+.particle {
+  position: absolute;
+  background: linear-gradient(45deg, #ffd700, #ffed4e, #fbbf24);
+  border-radius: 50%;
+  opacity: 0;
+  animation: floatUp 8s infinite linear;
+  box-shadow: 0 0 6px rgba(255, 215, 0, 0.6);
+}
+
+.particle.small { 
+  width: 3px; 
+  height: 3px; 
+  animation-duration: 6s;
+}
+
+.particle.medium { 
+  width: 5px; 
+  height: 5px; 
+  animation-duration: 8s;
+}
+
+.particle.large { 
+  width: 8px; 
+  height: 8px; 
+  animation-duration: 10s;
+}
+
+/* Estrellas brillantes */
+.star {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: #fbbf24;
+  clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+  opacity: 0;
+  animation: twinkle 4s infinite ease-in-out;
+}
+
+/* Elementos de belleza flotantes */
+.beauty-element {
+  position: absolute;
+  opacity: 0;
+  animation: gentleFloat 12s infinite ease-in-out;
+  font-size: 16px;
+  color: rgba(180, 83, 9, 0.3);
+}
+
+.beauty-element.scissors::before {
+  content: '✂️';
+  filter: grayscale(100%) sepia(100%) hue-rotate(30deg) opacity(0.4);
+}
+
+.beauty-element.sparkle::before {
+  content: '✨';
+  filter: hue-rotate(45deg) opacity(0.5);
+}
+
+.beauty-element.flower::before {
+  content: '🌸';
+  filter: opacity(0.4);
+}
+
+/* Ondas sutiles de fondo */
+.wave {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 200px;
+  background: linear-gradient(180deg, 
+    rgba(180, 83, 9, 0.02) 0%,
+    rgba(180, 83, 9, 0.05) 50%,
+    rgba(180, 83, 9, 0.08) 100%
+  );
+  opacity: 0.6;
+  animation: waveMove 20s infinite ease-in-out;
+  transform-origin: center bottom;
+}
+
+.wave:nth-child(2) {
+  animation-delay: -5s;
+  opacity: 0.4;
+  height: 150px;
+}
+
+.wave:nth-child(3) {
+  animation-delay: -10s;
+  opacity: 0.3;
+  height: 100px;
+}
+
+/* Animaciones */
+@keyframes floatUp {
+  0% {
+    transform: translateY(100vh) translateX(0px) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100px) translateX(100px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+@keyframes twinkle {
+  0%, 100% { 
+    opacity: 0; 
+    transform: scale(0.5);
+  }
+  50% { 
+    opacity: 1; 
+    transform: scale(1.2);
+  }
+}
+
+@keyframes gentleFloat {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px) rotate(0deg);
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateY(-20px) translateX(10px) rotate(180deg);
+    opacity: 0.8;
+  }
+  75% {
+    opacity: 0.4;
+  }
+}
+
+@keyframes waveMove {
+  0%, 100% {
+    transform: translateX(0px) scaleY(1);
+  }
+  25% {
+    transform: translateX(-20px) scaleY(1.1);
+  }
+  50% {
+    transform: translateX(20px) scaleY(0.9);
+  }
+  75% {
+    transform: translateX(-10px) scaleY(1.05);
+  }
+}
+
+/* Efecto de brillo sutil en toda la página */
+.beauty-shimmer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background: linear-gradient(
+    45deg,
+    transparent 30%,
+    rgba(255, 215, 0, 0.03) 50%,
+    transparent 70%
+  );
+  background-size: 200% 200%;
+  animation: shimmerMove 15s infinite ease-in-out;
+  pointer-events: none;
+}
+
+@keyframes shimmerMove {
+  0%, 100% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .particle {
+    animation-duration: 6s;
+  }
+  
+  .beauty-element {
+    font-size: 14px;
+    animation-duration: 10s;
+  }
+  
+  .wave {
+    height: 120px;
+    animation-duration: 15s;
+  }
+}
+
+/* Efecto de cristal para las tarjetas */
+.glass-card {
+  background: rgba(255, 255, 255, 0.25) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.1),
+    0 0 20px rgba(255, 255, 255, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4) !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.glass-card:hover {
+  background: rgba(255, 255, 255, 0.35) !important;
+  transform: translateY(-8px) !important;
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.15),
+    0 0 30px rgba(255, 255, 255, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5) !important;
+  border: 1px solid rgba(255, 255, 255, 0.4) !important;
+}
+
+/* Efectos adicionales para el Home */
+.home-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    circle at 30% 40%,
+    rgba(255, 215, 0, 0.1) 0%,
+    transparent 50%
+  ),
+  radial-gradient(
+    circle at 70% 70%,
+    rgba(180, 83, 9, 0.08) 0%,
+    transparent 50%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Mejoras para elementos específicos */
+.animated-text {
+  animation: textGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes textGlow {
+  0% {
+    text-shadow: 0 0 5px rgba(180, 83, 9, 0.5);
+  }
+  100% {
+    text-shadow: 0 0 20px rgba(180, 83, 9, 0.8), 0 0 30px rgba(180, 83, 9, 0.6);
+  }
+}
+
+/* Efectos para botones sobre fondo animado */
+.btn-glass {
+  background: rgba(255, 255, 255, 0.2) !important;
+  backdrop-filter: blur(10px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1) !important;
+}
+
+.btn-glass:hover {
+  background: rgba(255, 255, 255, 0.3) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.2) !important;
+}

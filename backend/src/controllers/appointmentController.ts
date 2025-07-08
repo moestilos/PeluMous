@@ -220,3 +220,47 @@ export const getHairdresserAppointments = async (req: AuthRequest, res: Response
     res.status(500).json({ message: 'Error del servidor' });
   }
 };
+
+export const checkAvailability = async (req: AuthRequest, res: Response): Promise<void> => {
+  try {
+    const { peluqueroId, fecha } = req.query;
+
+    if (!peluqueroId || !fecha) {
+      res.status(400).json({ message: 'Peluquero y fecha son requeridos' });
+      return;
+    }
+
+    // Buscar citas existentes para el peluquero en la fecha especificada
+    const existingAppointments = await Appointment.find({
+      peluquero: peluqueroId,
+      fecha: new Date(fecha as string),
+      estado: { $in: ['pendiente', 'confirmada'] }
+    }).select('horaInicio horaFin');
+
+    // Generar todos los horarios posibles (9:00 AM a 6:00 PM, cada 30 min)
+    const allTimeSlots = [];
+    for (let hour = 9; hour <= 17; hour++) {
+      allTimeSlots.push(`${hour.toString().padStart(2, '0')}:00`);
+      if (hour < 17) { // No agregar 17:30 porque sería muy tarde
+        allTimeSlots.push(`${hour.toString().padStart(2, '0')}:30`);
+      }
+    }
+
+    // Filtrar horarios ocupados
+    const occupiedSlots = existingAppointments.map(apt => apt.horaInicio);
+    const availableSlots = allTimeSlots.filter(slot => !occupiedSlots.includes(slot));
+
+    res.json({
+      date: fecha,
+      peluqueroId,
+      availableSlots,
+      occupiedSlots,
+      totalSlots: allTimeSlots.length,
+      availableCount: availableSlots.length
+    });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error del servidor' });
+  }
+};

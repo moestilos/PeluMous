@@ -182,7 +182,7 @@ const Home: React.FC = () => {
   return (
     <Box sx={{ 
       minHeight: '100vh',
-      background: 'linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(248,250,252,0.98) 100%)',
+      background: 'transparent',
       position: 'relative'
     }}>
       {/* Hero Section */}
@@ -303,8 +303,8 @@ const Home: React.FC = () => {
                 >
                   <Box
                     component="img"
-                    src="/img/salon-hero.jpg"
-                    alt="Salón de Belleza Profesional"
+                    src="/fotoA.png"
+                    alt="Imagen de Inicio"
                     sx={{
                       width: '100%',
                       height: '100%',
@@ -323,7 +323,7 @@ const Home: React.FC = () => {
       </Container>
 
       {/* Features Section */}
-      <Box sx={{ py: { xs: 8, md: 12 }, bgcolor: 'rgba(248, 250, 252, 0.5)' }}>
+      <Box sx={{ py: { xs: 8, md: 12 }, bgcolor: 'rgba(255, 255, 255, 0.4)', backdropFilter: 'blur(10px)' }}>
         <Container maxWidth="xl">
           <motion.div
             variants={containerVariants}
@@ -542,7 +542,7 @@ const Home: React.FC = () => {
       </Box>
 
       {/* Testimonials Section */}
-      <Box sx={{ py: { xs: 8, md: 12 }, bgcolor: 'rgba(248, 250, 252, 0.5)' }}>
+      <Box sx={{ py: { xs: 8, md: 12 }, bgcolor: 'rgba(255, 255, 255, 0.3)', backdropFilter: 'blur(8px)' }}>
         <Container maxWidth="xl">
           <motion.div
             variants={containerVariants}

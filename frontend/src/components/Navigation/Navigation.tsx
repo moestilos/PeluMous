@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
   AppBar,
@@ -38,6 +37,11 @@ import {
   CheckCircle
 } from '@mui/icons-material';
 import { useAuth } from '../../contexts/AuthContext';
+import {
+  useNavigate,
+  useLocation,
+  NavLink
+} from 'react-router-dom';
 
 interface NavigationItem {
   label: string;
@@ -131,11 +135,6 @@ const Navigation: React.FC = () => {
     setMobileOpen(!mobileOpen);
   };
 
-  const handleNavigation = (path: string) => {
-    navigate(path);
-    setMobileOpen(false);
-  };
-
   const handleLogout = () => {
     logout();
     navigate('/');
@@ -222,37 +221,29 @@ const Navigation: React.FC = () => {
       </Box>
 
       <List sx={{ px: 1, py: 2 }}>
-        {filteredItems.map((item, index) => (
+        {filteredItems.map(item => (
           <ListItemButton
+            component={NavLink}
+            to={item.path}
             key={item.path}
-            onClick={() => handleNavigation(item.path)}
+            onClick={() => setMobileOpen(false)}
+            selected={isActive(item.path)}
             sx={{
               borderRadius: 2,
               mb: 0.5,
               mx: 1,
-              background: isActive(item.path) 
+              background: isActive(item.path)
                 ? 'rgba(0, 0, 0, 0.08)'
                 : 'transparent',
-              border: isActive(item.path) 
+              border: isActive(item.path)
                 ? '1px solid rgba(0, 0, 0, 0.12)'
                 : '1px solid transparent'
             }}
           >
-            <ListItemIcon sx={{ 
-              color: isActive(item.path) ? '#000000' : 'inherit',
-              minWidth: 40
-            }}>
+            <ListItemIcon sx={{ color: isActive(item.path) ? '#000000' : 'inherit', minWidth: 40 }}>
               {item.icon}
             </ListItemIcon>
-            <ListItemText 
-              primary={item.label}
-              sx={{
-                '& .MuiListItemText-primary': {
-                  fontWeight: isActive(item.path) ? 600 : 400,
-                  color: isActive(item.path) ? '#000000' : 'inherit'
-                }
-              }}
-            />
+            <ListItemText primary={item.label} sx={{ '& .MuiListItemText-primary': { fontWeight: isActive(item.path) ? 600 : 400, color: isActive(item.path) ? '#000000' : 'inherit' } }} />
             {item.badge && (
               <Chip 
                 label={item.badge}
@@ -408,78 +399,24 @@ const Navigation: React.FC = () => {
               color: '#000000',
               cursor: 'pointer'
             }}
-            onClick={() => navigate('/')}
+            onClick={() => navigate(user ? '/dashboard' : '/')}
           >
             Moestilos
           </Typography>
 
           {!isMobile && (
-            <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center', position: 'relative' }}>
-              {filteredItems.map((item, index) => (
-                <Box
-                  key={item.path}
-                  sx={{ 
-                    position: 'relative',
-                    '&:not(:last-child)': { mr: 4 }
-                  }}
-                >
+            <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center' }}>
+              {filteredItems.map(item => (
+                <Box key={item.path} sx={{ position: 'relative', '&:not(:last-child)': { mr: 3 } }}>
                   <Button
+                    component={NavLink}
+                    to={item.path}
                     startIcon={item.icon}
-                    onClick={() => handleNavigation(item.path)}
-                    sx={{
-                      borderRadius: 0,
-                      textTransform: 'none',
-                      fontWeight: isActive(item.path) ? 600 : 500,
-                      px: 0,
-                      py: 2,
-                      minWidth: 'auto',
-                      position: 'relative',
-                      background: 'transparent',
-                      color: isActive(item.path) ? '#000000' : '#666666',
-                      border: 'none',
-                      fontFamily: '"Inter", "Roboto", "Helvetica", "Arial", sans-serif',
-                      fontSize: '0.95rem',
-                      '& .MuiButton-startIcon': {
-                        marginRight: '8px'
-                      }
-                    }}
-                  >
-                    {item.label}
-                    {item.badge && (
-                      <Chip 
-                        label={item.badge}
-                        size="small"
-                        sx={{ 
-                          ml: 1,
-                          height: 20,
-                          backgroundColor: '#dc2626',
-                          color: 'white',
-                          fontSize: '0.75rem',
-                          fontWeight: 600
-                        }}
-                      />
-                    )}
-                  </Button>
-                  
-                  {/* Línea indicadora animada */}
+                    onClick={() => setMobileOpen(false)}
+                    sx={{ textTransform: 'none', fontWeight: isActive(item.path) ? 600 : 500, color: isActive(item.path) ? '#000' : '#666', background: 'transparent', px: 0, py: 2 }}
+                  >{item.label}</Button>
                   {isActive(item.path) && (
-                    <motion.div
-                      layoutId="activeTab"
-                      style={{
-                        position: 'absolute',
-                        bottom: 0,
-                        left: 0,
-                        right: 0,
-                        height: 3,
-                        backgroundColor: '#000000',
-                        borderRadius: '2px 2px 0 0'
-                      }}
-                      transition={{
-                        type: "tween",
-                        duration: 0.3,
-                        ease: "easeInOut"
-                      }}
-                    />
+                    <motion.div layoutId="activeTab" style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 3, backgroundColor: '#000', borderRadius: '2px 2px 0 0' }} />
                   )}
                 </Box>
               ))}

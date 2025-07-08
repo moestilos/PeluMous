@@ -5,7 +5,8 @@ import {
   getAppointments,
   getHairdresserAppointments,
   updateAppointmentStatus,
-  deleteAppointment
+  deleteAppointment,
+  checkAvailability
 } from '../controllers/appointmentController';
 
 const router = express.Router();
@@ -22,6 +23,11 @@ router.post('/', createAppointment);
 // @desc    Obtener citas
 // @access  Private
 router.get('/', getAppointments);
+
+// @route   GET /api/appointments/availability
+// @desc    Verificar disponibilidad de horarios
+// @access  Private
+router.get('/availability', checkAvailability);
 
 // @route   GET /api/appointments/hairdresser/my-appointments
 // @desc    Obtener citas del peluquero actual

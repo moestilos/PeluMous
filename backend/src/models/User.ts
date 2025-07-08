@@ -8,6 +8,8 @@ export interface IUser extends Document {
   rol: 'cliente' | 'admin' | 'peluquero';
   fechaRegistro: Date;
   profileImage?: string;
+  activo: boolean;
+  especialidades?: string[];
 }
 
 const UserSchema: Schema = new Schema({
@@ -36,6 +38,10 @@ const UserSchema: Schema = new Schema({
     enum: ['cliente', 'admin', 'peluquero'],
     default: 'cliente'
   },
+  activo: {
+    type: Boolean,
+    default: true
+  },
   fechaRegistro: {
     type: Date,
     default: Date.now
@@ -43,6 +49,10 @@ const UserSchema: Schema = new Schema({
   profileImage: {
     type: String,
     default: null
+  },
+  especialidades: {
+    type: [String],
+    default: []
   }
 });
 

@@ -50,6 +50,18 @@ const NewAppointment: React.FC = () => {
   const theme = useTheme();
   const [services, setServices] = useState<Service[]>([]);
   const [peluqueros, setPeluqueros] = useState<Peluquero[]>([]);
+  // Generar horarios de media hora (9:00 - 18:00)
+  const generateTimeSlots = () => {
+    const slots: string[] = [];
+    for (let hour = 9; hour < 18; hour++) {
+      slots.push(`${hour.toString().padStart(2, '0')}:00`);
+      slots.push(`${hour.toString().padStart(2, '0')}:30`);
+    }
+    return slots;
+  };
+
+  const initialTimeSlots = generateTimeSlots();
+  const [availableTimeSlots, setAvailableTimeSlots] = useState<string[]>(initialTimeSlots);
   const [formData, setFormData] = useState({
     servicio: '',
     peluquero: '',
@@ -77,10 +89,35 @@ const NewAppointment: React.FC = () => {
     }
   }, [showError]);
 
+  // Verificar disponibilidad usando nuevo endpoint
+  const checkAvailability = React.useCallback(async (peluqueroId: string, fecha: string) => {
+    if (!peluqueroId || !fecha) {
+      setAvailableTimeSlots(initialTimeSlots);
+      return;
+    }
+    try {
+      const token = localStorage.getItem('token');
+      const response = await axios.get('http://localhost:5000/api/appointments/availability', {
+        headers: { Authorization: `Bearer ${token}` },
+        params: { peluqueroId: peluqueroId, fecha: fecha }
+      });
+      const available = response.data.availableSlots as string[];
+      setAvailableTimeSlots(available);
+    } catch (error) {
+      console.error('❌ Error verificando disponibilidad:', error);
+      setAvailableTimeSlots(initialTimeSlots);
+    }
+  }, [initialTimeSlots]);
+
   useEffect(() => {
     fetchServices();
     fetchPeluqueros();
   }, [fetchServices, fetchPeluqueros]);
+
+  // Actualizar slots cuando cambie peluquero o fecha
+  useEffect(() => {
+    checkAvailability(formData.peluquero, formData.fecha);
+  }, [formData.peluquero, formData.fecha, checkAvailability]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -92,10 +129,33 @@ const NewAppointment: React.FC = () => {
     setLoading(true);
     try {
       const token = localStorage.getItem('token');
-      await axios.post('http://localhost:5000/api/appointments', formData, {
-        headers: { Authorization: `Bearer ${token}` }
+      console.log('🚀 Enviando solicitud de cita...', formData);
+      
+      // Mapear los nombres de campos correctos para el backend
+      const appointmentData = {
+        peluquero: formData.peluquero,
+        servicio: formData.servicio,
+        fecha: formData.fecha,
+        horaInicio: formData.horaInicio,
+        notas: formData.notas
+      };
+      
+      console.log('📤 Datos a enviar:', appointmentData);
+      
+      const response = await axios.post('http://localhost:5000/api/appointments', appointmentData, {
+        headers: { 
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
       });
-      showSuccess('Cita reservada exitosamente');
+      
+      console.log('✅ Cita creada exitosamente:', response.data);
+      
+      // Mostrar mensaje de éxito más detallado
+      const appointment = response.data.appointment;
+      showSuccess(`¡Cita reservada exitosamente! ${appointment.servicio.nombre} con ${appointment.peluquero.nombre} el ${new Date(appointment.fecha).toLocaleDateString()} a las ${appointment.horaInicio}`);
+      
+      // Limpiar formulario
       setFormData({
         servicio: '',
         peluquero: '',
@@ -103,8 +163,17 @@ const NewAppointment: React.FC = () => {
         horaInicio: '',
         notas: ''
       });
+      
+      // Opcional: Redirigir a "Mis Citas" después de 3 segundos
+      setTimeout(() => {
+        window.location.href = '/dashboard?section=myAppointments';
+      }, 3000);
+      
     } catch (error: any) {
-      showError(error.response?.data?.message || 'Error al reservar la cita');
+      console.error('❌ Error al crear cita:', error);
+      console.error('❌ Detalles del error:', error.response?.data);
+      const errorMessage = error.response?.data?.message || 'Error al reservar la cita';
+      showError(errorMessage);
     } finally {
       setLoading(false);
     }
@@ -309,7 +378,9 @@ const NewAppointment: React.FC = () => {
                     <Select
                       value={formData.peluquero}
                       label="Peluquero *"
-                      onChange={(e) => setFormData(prev => ({ ...prev, peluquero: e.target.value }))}
+                      onChange={(e) => {
+                        setFormData(prev => ({ ...prev, peluquero: e.target.value, horaInicio: '' }));
+                      }}
                     >
                       {peluqueros.map((peluquero) => (
                         <MenuItem key={peluquero._id} value={peluquero._id}>
@@ -400,26 +471,62 @@ const NewAppointment: React.FC = () => {
                       type="date"
                       label="Fecha *"
                       value={formData.fecha}
-                      onChange={(e) => setFormData(prev => ({ ...prev, fecha: e.target.value }))}
+                      onChange={(e) => {
+                        setFormData(prev => ({ ...prev, fecha: e.target.value, horaInicio: '' }));
+                      }}
                       InputLabelProps={{ shrink: true }}
                       inputProps={{
                         min: new Date().toISOString().split('T')[0]
                       }}
                     />
-                    <TextField
-                      fullWidth
-                      type="time"
-                      label="Hora *"
-                      value={formData.horaInicio}
-                      onChange={(e) => setFormData(prev => ({ ...prev, horaInicio: e.target.value }))}
-                      InputLabelProps={{ shrink: true }}
-                      inputProps={{
-                        min: "09:00",
-                        max: "18:00",
-                        step: "1800" // 30 minutos
-                      }}
-                    />
+                    
+                    <FormControl fullWidth>
+                      <InputLabel>Hora *</InputLabel>
+                      <Select
+                        value={formData.horaInicio}
+                        label="Hora *"
+                        onChange={(e) => setFormData(prev => ({ ...prev, horaInicio: e.target.value }))}
+                        disabled={!formData.peluquero || !formData.fecha}
+                      >
+                        {!availableTimeSlots.length ? (
+                          <MenuItem disabled value="">
+                            <em>No hay horarios disponibles</em>
+                          </MenuItem>
+                        ) : (
+                          availableTimeSlots.map((slot) => (
+                            <MenuItem key={slot} value={slot}>{slot}</MenuItem>
+                          ))
+                        )}
+                      </Select>
+                    </FormControl>
                   </Stack>
+
+                  {/* Información sobre horarios */}
+                  <Box sx={{ 
+                    mt: 3, 
+                    p: 2, 
+                    background: alpha(theme.palette.info.main, 0.05),
+                    borderRadius: 2,
+                    border: `1px solid ${alpha(theme.palette.info.main, 0.2)}`
+                  }}>
+                    <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 1, color: 'info.main' }}>
+                      ℹ️ Información sobre horarios
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
+                      • Horario de atención: 9:00 AM - 6:00 PM
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
+                      • Citas disponibles en punto y media hora (ej: 10:00, 10:30)
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      • Selecciona fecha y peluquero para ver horarios disponibles
+                    </Typography>
+                    {availableTimeSlots.length > 0 && formData.peluquero && formData.fecha && (
+                      <Typography variant="body2" sx={{ mt: 1, color: 'success.main', fontWeight: 500 }}>
+                        ✅ {availableTimeSlots.length} horarios disponibles para la fecha seleccionada
+                      </Typography>
+                    )}
+                  </Box>
                 </CardContent>
               </Card>
             </motion.div>

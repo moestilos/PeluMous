@@ -1,7 +1,7 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
-import LandingPage from './LandingPage';
+import Home from './Home';
 
 const HomeRedirect: React.FC = () => {
   const { user, loading } = useAuth();
@@ -10,9 +10,9 @@ const HomeRedirect: React.FC = () => {
     return <div>Cargando...</div>;
   }
 
-  // Si no hay usuario, mostrar la nueva página de inicio
+  // Si no hay usuario, mostrar la página de inicio
   if (!user) {
-    return <LandingPage />;
+    return <Home />;
   }
 
   // Si es admin, redirigir al panel de admin
@@ -25,8 +25,8 @@ const HomeRedirect: React.FC = () => {
     return <Navigate to="/hairdresser" replace />;
   }
 
-  // Si es cliente, mostrar la nueva página de inicio
-  return <LandingPage />;
+  // Si es cliente, mostrar la página de inicio (que tiene funcionalidad de reservas)
+  return <Home />;
 };
 
 export default HomeRedirect;
